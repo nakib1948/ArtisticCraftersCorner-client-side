@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        purple: '#B85EE6',
+        deepred: '#dd7973',
       },
     },
   },

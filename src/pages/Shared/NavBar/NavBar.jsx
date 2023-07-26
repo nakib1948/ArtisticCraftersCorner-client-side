@@ -57,8 +57,8 @@ const NavBar = () => {
             {listOptions}
         </ul>
       </div>
-      <div className="navbar-end">
-        <a className="btn">Login</a>
+      <div className="navbar-end ">
+        <button className="btn bg-deepred text-white">Login</button>
       </div>
     </div>
   );
