@@ -5,6 +5,7 @@ import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import { FreeMode, Pagination, Autoplay } from "swiper/modules";
 import { useEffect, useState } from "react";
+import HeaderTitle from "../../Shared/HeaderTitle/HeaderTitle";
 
 const InstructorSection = () => {
   const [instructors, setInstructors] = useState([]);
@@ -19,9 +20,8 @@ const InstructorSection = () => {
 
   return (
     <div className="my-10">
-      <p className="text-center text-red-400 text-4xl font-semibold mb-10">
-        Our Famous Instructors
-      </p>
+      <HeaderTitle title=" Our Famous Instructors"></HeaderTitle>
+
       <Swiper
         slidesPerView={3}
         spaceBetween={30}
@@ -29,12 +29,12 @@ const InstructorSection = () => {
         pagination={{
           clickable: true,
         }}
-        modules={[FreeMode, Pagination,Autoplay]}
-        className="mySwiper pb-10"
+        modules={[FreeMode, Pagination, Autoplay]}
+        className="mySwiper pb-10 mt-10"
         autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
       >
         {instructors.map((data, index) => (
           <SwiperSlide key={index}>
