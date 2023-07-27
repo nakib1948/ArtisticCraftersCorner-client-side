@@ -1,4 +1,5 @@
 import ClassesSection from "../ClassesSections/ClassesSection";
+import InstructorSection from "../InstructorSection/InstructorSection";
 import TopSliderSection from "../TopSliderSection/TopSliderSection";
 
 const Home = () => {
@@ -6,6 +7,7 @@ const Home = () => {
         <div>
             <TopSliderSection/>
             <ClassesSection/>
+            <InstructorSection/>
         </div>
     );
 };
