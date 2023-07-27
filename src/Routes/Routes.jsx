@@ -14,6 +14,7 @@ export const router = createBrowserRouter([
         {
           path: "/",
           element: <Home></Home>,
+          loader:()=>fetch('http://localhost:3000/classes')
         
         },
         {

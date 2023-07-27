@@ -1,0 +1,35 @@
+import { useEffect, useState } from "react";
+import { useLoaderData } from "react-router-dom";
+
+const ClassesSection = () => {
+  const Popularcls = useLoaderData();
+
+  return (
+    <div className="mt-20">
+      <p className="text-center text-red-400 text-4xl font-semibold">Our Popular Classes</p>
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 my-10">
+        {Popularcls.map((cls, index) => (
+          <div key={index} className="card w-96 bg-base-100 shadow-xl">
+            <figure>
+              <img
+                src={cls.image}
+                alt="Shoes"
+              />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">
+              {cls.name}
+              </h2>
+              <div className="card-actions justify-end">
+                <div className="badge badge-secondary badge-outline badge-lg">enrolled: {cls.enrolled}</div>
+                <div className="badge badge-secondary badge-outline badge-lg">availableSeats: {cls.availableSeats}</div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ClassesSection;

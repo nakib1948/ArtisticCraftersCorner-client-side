@@ -3,7 +3,7 @@ import footerImg from "../../../assets/Navbar/navImg.png";
 const Footer = () => {
   return (
     <>
-      <footer className="footer p-6 bg-base-200 text-base-content">
+      <footer className="footer p-6 bg-base-200 mt-20 text-base-content">
         <div>
           <span className="footer-title">Services</span>
           <a className="link link-hover">Branding</a>
