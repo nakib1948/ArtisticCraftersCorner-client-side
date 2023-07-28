@@ -2,14 +2,25 @@ import { useQuery } from "@tanstack/react-query";
 import HeaderTitle from "../Shared/HeaderTitle/HeaderTitle";
 import { useState } from "react";
 import Pagination from "../Shared/Pagination/Pagination";
-
-const InstructorPage = () => {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faDollarSign,
+    faEnvelope,
+    faMapMarkerAlt,
+  } from "@fortawesome/free-solid-svg-icons";
+  import {
+    faFacebook,
+    faTwitter,
+    faInstagram,
+    faYoutube,
+  } from "@fortawesome/free-brands-svg-icons";
+const Allclass = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const { data, isLoading, error } = useQuery({
-    queryKey: ["instructor"],
+    queryKey: ["allclasses"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/instructor");
+      const res = await fetch("http://localhost:3000/classes");
       return res.json();
     },
   });
@@ -37,12 +48,12 @@ const InstructorPage = () => {
 
   return (
     <div className="pt-28">
-      <HeaderTitle title="Our Instructors"></HeaderTitle>
+      <HeaderTitle title="Our Available Courses"></HeaderTitle>
       <div className="join flex justify-center items-center my-10">
         <input
           className="input input-secondary input-bordered join-item lg:w-96"
           name="search"
-          placeholder="Search Instructor..."
+          placeholder="Search Courses..."
           value={search}
           onChange={(event) => {
             setSearch(event.target.value);
@@ -56,7 +67,7 @@ const InstructorPage = () => {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 my-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 my-10">
         {currentPosts
           .filter((val) => {
             if (search === "") {
@@ -65,21 +76,27 @@ const InstructorPage = () => {
               return val;
             }
           })
-          .map((instructor, index) => (
-            <div
-              key={index}
-              className="card card-compact w-96 bg-base-100 shadow-xl"
-            >
+          .map((classes, index) => (
+            <div key={index} className="card card-side bg-base-100 shadow-xl">
               <figure>
                 <img
-                  className="h-60 rounded-lg"
-                  src={instructor.image}
-                  alt="Shoes"
+                  className="w-96 rounded-xl"
+                  src={classes.image}
+                  alt="Movie"
                 />
               </figure>
               <div className="card-body">
-                <h2 className="card-title">{instructor.name}</h2>
-                <p className="text-base font-sans">Email: {instructor.email}</p>
+                <h2 className="card-title">{classes.name}</h2>
+                <p className="text-base">by {classes.instructor}</p>
+                <p  className="text-md"> <b> {classes.availableSeats}</b> seat left</p>
+                <p  className="text-lg font-serif"><FontAwesomeIcon className="mr-1" icon={faDollarSign} />{classes.price} </p>
+              
+                <div className="card-actions justify-end">
+                    {
+
+                    }
+                  <button disabled={classes.availableSeats === 0} className="btn w-full font-bold bg-deepred text-white">Enroll</button>
+                </div>
               </div>
             </div>
           ))}
@@ -95,4 +112,4 @@ const InstructorPage = () => {
   );
 };
 
-export default InstructorPage;
+export default Allclass;
