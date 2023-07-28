@@ -58,7 +58,7 @@ const NavBar = () => {
         </ul>
       </div>
       <div className="navbar-end ">
-        <button className="btn bg-deepred text-white">Login</button>
+        <button className="btn bg-deepred rounded-full text-white">Login</button>
       </div>
     </div>
   );

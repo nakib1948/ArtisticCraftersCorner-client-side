@@ -25,7 +25,7 @@ import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
 import HeaderTitle from "../../Shared/HeaderTitle/HeaderTitle"
 const Gallery = () => {
     const images = [
-        img1,img2,img3,img4,img5,img6,img7,img8,img9,img10,img11,img12,img13,img14,img15,img16,img17,img18,img19,img21,img22
+        img2,img4,img5,img6,img9,img10,img12,img16,img17,img18,img19,img21,img22,img23,img20,img13,img14,img15
     ]
 
     console.log(images)
@@ -37,7 +37,7 @@ const Gallery = () => {
 
         <ResponsiveMasonry className="mt-5" columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
           <Masonry
-            style={{ gap: "15px" }} // Add the gap value in pixels (adjust it as needed)
+            style={{ gap: "15px" }} 
           >
             {images.map((image, i) => (
               <img

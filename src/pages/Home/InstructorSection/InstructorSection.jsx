@@ -38,7 +38,7 @@ const InstructorSection = () => {
       >
         {instructors.map((data, index) => (
           <SwiperSlide key={index}>
-            <img className="h-80" src={data.image} alt="" />
+            <img className="h-80 rounded-lg" src={data.image} alt="" />
           </SwiperSlide>
         ))}
       </Swiper>
