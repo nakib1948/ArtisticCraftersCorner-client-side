@@ -3,7 +3,8 @@ import { useLoaderData } from "react-router-dom";
 import HeaderTitle from "../../Shared/HeaderTitle/HeaderTitle";
 
 const ClassesSection = () => {
-  const Popularcls = useLoaderData();
+  const loaderData = useLoaderData();
+  const Popularcls = loaderData.slice(0, 6);
 
   return (
     <div className="mt-20">

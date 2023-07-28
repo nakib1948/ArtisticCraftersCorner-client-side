@@ -46,7 +46,7 @@ const Login = () => {
         backgroundSize: "cover",
       }}
     >
-      <div className="hero-content flex-col lg:flex-row-reverse">
+      <div className="hero-content mt-20 flex-col lg:flex-row-reverse">
         <div className="text-center w-1/3 lg:text-left">
           <Lottie animationData={img1} />
         </div>

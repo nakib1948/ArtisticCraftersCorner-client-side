@@ -1,7 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import navImg from "../../../assets/Navbar/navImg.png";
+import { useContext } from "react";
+import { AuthContext } from "../../../Providers/AuthProvider";
 
 const NavBar = () => {
+  const { user, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const signout = () => {
+    logOut().then(() => {
+      localStorage.removeItem("access-token");
+    });
+    navigate("/");
+  };
+
   const listOptions = (
     <>
       <li className="text-xl font-bold">
@@ -9,9 +20,9 @@ const NavBar = () => {
       </li>
 
       <li className="text-xl font-bold">
-        <a>Instructors</a>
+        <Link to="/instructors">Instructors</Link>
       </li>
-      <li className="text-xl font-bold"> 
+      <li className="text-xl font-bold">
         <a>Classes</a>
       </li>
       <li className="text-xl font-bold">
@@ -44,21 +55,51 @@ const NavBar = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
-            {
-                listOptions
-            }
-
+            {listOptions}
           </ul>
         </div>
         <img src={navImg} className="h-16" alt="" />
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-            {listOptions}
-        </ul>
+        <ul className="menu menu-horizontal px-1">{listOptions}</ul>
       </div>
       <div className="navbar-end ">
-        <button className="btn bg-deepred rounded-full text-white">Login</button>
+        {user?.email ? (
+          <div>
+            <img
+              onClick={() => window.my_modal_2.showModal()}
+              className="h-16 rounded-full group hover:tooltip"
+              src={user.photoURL}
+              alt="User Profile"
+              title={user.displayName}
+            />
+            <dialog id="my_modal_2" className="modal">
+              <form method="dialog" className="modal-box bg-base-200">
+                <img
+                  className="h-16 rounded-full mx-auto"
+                  src={user.photoURL}
+                  alt="User Profile"
+                  title={user.displayName}
+                />
+                <p className="text-lg text-deepred text-center">Name: {user.displayName}</p>
+                <p className="py-4 text-deepred text-center">Email: {user.email}</p>
+                <button
+                  onClick={() => signout()}
+                  className="btn btn-block bg-deepred text-white"
+                >
+                  Logout
+                </button>
+              </form>
+              <form method="dialog" className="modal-backdrop">
+                <button>close</button>
+              </form>
+            </dialog>
+          </div>
+        ) : (
+          <button className="btn bg-deepred text-white rounded-full">
+            <Link to="/login ">Login</Link>
+          </button>
+        )}
       </div>
     </div>
   );

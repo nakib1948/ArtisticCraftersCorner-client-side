@@ -15,7 +15,7 @@ const InstructorSection = () => {
       method: "GET",
     })
       .then((res) => res.json())
-      .then((data) => setInstructors(data));
+      .then((data) => setInstructors(data.slice(0,6)));
   }, []);
 
   return (
