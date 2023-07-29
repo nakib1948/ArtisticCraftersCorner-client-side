@@ -1,22 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
 import HeaderTitle from "../Shared/HeaderTitle/HeaderTitle";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Pagination from "../Shared/Pagination/Pagination";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faDollarSign,
-    faEnvelope,
-    faMapMarkerAlt,
-  } from "@fortawesome/free-solid-svg-icons";
-  import {
-    faFacebook,
-    faTwitter,
-    faInstagram,
-    faYoutube,
-  } from "@fortawesome/free-brands-svg-icons";
+import { faDollarSign } from "@fortawesome/free-solid-svg-icons";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { AuthContext } from "../../Providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+
 const Allclass = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [axiosSecure] = useAxiosSecure();
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const postsPerPage = 6;
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["allclasses"],
     queryFn: async () => {
@@ -26,7 +29,7 @@ const Allclass = () => {
   });
   if (isLoading) {
     return (
-      <div className="text-center">
+      <div className="text-center mt-20">
         <span className="loading loading-ring loading-xs"></span>
         <span className="loading loading-ring loading-sm"></span>
         <span className="loading loading-ring loading-md"></span>
@@ -38,13 +41,21 @@ const Allclass = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-  const postsPerPage = 6;
-
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
   const currentPosts = data.slice(firstPostIndex, lastPostIndex);
+  const enroll = (data) => {
+    if (!user?.email) {
+      navigate("/login");
+    }
+    data.email = user.email;
 
-  console.log(data);
+    axiosSecure.post("/selectedclasses", data).then((data) => {
+      if (data.data == "already exists") {
+        Swal.fire("you already added this course");
+      } else if (data.data.insertedId) {
+        Swal.fire("Course added successfully");
+      }
+    });
+  };
 
   return (
     <div className="pt-28">
@@ -77,7 +88,14 @@ const Allclass = () => {
             }
           })
           .map((classes, index) => (
-            <div key={index} className="card card-side bg-base-100 shadow-xl">
+            <div
+              key={index}
+              className={
+                classes.availableSeats === 0
+                  ? "card bg-red-500 card-side bg-base-100 shadow-xl"
+                  : "card card-side bg-base-100 shadow-xl"
+              }
+            >
               <figure>
                 <img
                   className="w-96 rounded-xl"
@@ -88,14 +106,25 @@ const Allclass = () => {
               <div className="card-body">
                 <h2 className="card-title">{classes.name}</h2>
                 <p className="text-base">by {classes.instructor}</p>
-                <p  className="text-md"> <b> {classes.availableSeats}</b> seat left</p>
-                <p  className="text-lg font-serif"><FontAwesomeIcon className="mr-1" icon={faDollarSign} />{classes.price} </p>
-              
-                <div className="card-actions justify-end">
-                    {
+                <p className="text-md">
+                  {" "}
+                  <b> {classes.availableSeats}</b> seat left
+                </p>
+                <p className="text-lg font-serif">
+                  <FontAwesomeIcon className="mr-1" icon={faDollarSign} />
+                  {classes.price}{" "}
+                </p>
 
-                    }
-                  <button disabled={classes.availableSeats === 0} className="btn w-full font-bold bg-deepred text-white">Enroll</button>
+                <div className="card-actions justify-end">
+                  <button
+                    disabled={classes.availableSeats === 0}
+                    className="btn w-full font-bold bg-deepred text-white"
+                    onClick={() => {
+                      enroll(classes);
+                    }}
+                  >
+                    Enroll
+                  </button>
                 </div>
               </div>
             </div>
