@@ -9,7 +9,7 @@ const MySelectedClass = () => {
   const [axiosSecure] = useAxiosSecure();
   const {user}=useContext(AuthContext)
 
-    const { data, isLoading, error } = useQuery({
+    const { data, isLoading, error,refetch } = useQuery({
         queryKey: ["myclasses"],
         queryFn: async () => {
           const res = await axiosSecure(`/selectedclasses?email=${user?.email}`);
@@ -61,6 +61,7 @@ const MySelectedClass = () => {
                     key={index}
                     id={index}
                     classes={classes}
+                    refetch={refetch}
                    
                     ></MyclassTable>
                   ))}

@@ -9,6 +9,7 @@ import Allclass from "../pages/Allclass/Allclass";
 import Dashboard from "../Layout/Dashboard";
 import MySelectedClass from "../pages/MySelectedClass/MySelectedClass";
 import PrivateRoute from "./PrivateRoute ";
+import Payment from "../pages/Payment/Payment";
 
 
 export const router = createBrowserRouter([
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
                 element: <MySelectedClass></MySelectedClass>,
               
             },
+            {
+              path:'payment',
+              element:<Payment></Payment>
+            }
         ]
     },
     {

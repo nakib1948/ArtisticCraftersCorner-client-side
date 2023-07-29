@@ -1,13 +1,17 @@
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
-const MyclassTable = ({classes,id}) => {
+const MyclassTable = ({classes,id,refetch}) => {
 
     const {_id,image,name,instructor,availableSeats,price,description,enrolled,email}=classes
-
+    
+    const [axiosSecure]=useAxiosSecure()
     const handleDelete = (_id) => {
+        console.log(_id)
         Swal.fire({
           title: "Warning!",
-          text: "Are you sure you want to delete this item?",
+          text: "Are you sure you want to delete this course?",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#B91C1C",
@@ -15,7 +19,15 @@ const MyclassTable = ({classes,id}) => {
           confirmButtonText: "Confirm delete",
         }).then((result) => {
           if (result.isConfirmed) {
-            
+            console.log('hello')
+            axiosSecure.delete(`/selectedclasses/${_id}`)
+            .then(res=>{
+                if(res.data.deletedCount>0)
+                {
+                    refetch();
+                    Swal.fire('Course Deleted!!!')
+                }
+            })
           }
         });
       };
@@ -37,12 +49,13 @@ const MyclassTable = ({classes,id}) => {
         <td>{price} $  </td>
         <td>{enrolled}</td>
         <th>
-          <label
+          <Link to='/dashboard/payment'
             className="btn bg-deepred lg:btn-sm mr-4 py-2 text-white"
+            
           >
-            {" "}
+           
             Payment
-          </label>
+          </Link>
           <button
             onClick={() => handleDelete(_id)}
             className="btn bg-red-600 lg:btn-sm py-2 text-white"
