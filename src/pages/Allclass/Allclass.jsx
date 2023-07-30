@@ -53,15 +53,23 @@ const Allclass = () => {
       email:user.email,
       courseId:data._id
     }
+    axiosSecure(`/existsenroll/${newdata.courseId}`)
+    .then(res=>{
+       if(res.data.exists)
+       return Swal.fire('You already enrolled this course!!!')
+       else{
+        axiosSecure.post("/selectedclasses", newdata).then((data) => {
+          if (data.data == "already exists") {
+            Swal.fire("you already added this course");
+          } else if (data.data.insertedId) {
+            Swal.fire("Course added successfully");
+          }
+        });
+       }
+        
+    })
 
-
-    axiosSecure.post("/selectedclasses", newdata).then((data) => {
-      if (data.data == "already exists") {
-        Swal.fire("you already added this course");
-      } else if (data.data.insertedId) {
-        Swal.fire("Course added successfully");
-      }
-    });
+   
   };
 
   return (

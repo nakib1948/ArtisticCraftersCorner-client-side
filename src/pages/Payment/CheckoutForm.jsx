@@ -4,6 +4,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useEffect } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const CheckoutForm = ({price,data}) => {
   const stripe = useStripe();
@@ -86,7 +87,7 @@ const CheckoutForm = ({price,data}) => {
         axiosSecure.post('/payments',payment)
         .then(res=>{
             if(res.data.InsertResult.insertedId){
-
+                Swal.fire('Payment Successful!!')
             }
         })
      }

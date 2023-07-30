@@ -18,6 +18,9 @@ const MySelectedClass = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
+
+  if(!data.length)
+  return <HeaderTitle title="You have no selected courses"></HeaderTitle>
   
 
   return (

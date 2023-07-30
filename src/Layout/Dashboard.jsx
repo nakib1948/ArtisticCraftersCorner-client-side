@@ -5,6 +5,7 @@ import icon1 from "../assets/StudentDashboard/class.png";
 import icon2 from "../assets/StudentDashboard/icon2.png";
 import icon3 from "../assets/StudentDashboard/icon3.png";
 import icon4 from "../assets/StudentDashboard/icon4.png";
+import icon5 from "../assets/StudentDashboard/icon5.png";
 
 const Dashboard = () => {
   const isAdmin = false;
@@ -46,18 +47,18 @@ const Dashboard = () => {
             </Link>
           </li>
           <li className={litext}>
-            <a>
+            <Link to="/dashboard/enrolled">
               {" "}
               <img src={icon1} className="h-7" alt="" />
               My Enrolled Classes
-            </a>
+            </Link>
           </li>
           <li className={litext}>
-            <a>
+            <Link to="/dashboard/paymenthistory">
               {" "}
-              <img src={icon1} className="h-7" alt="" />
+              <img src={icon5} className="h-7" alt="" />
               Payment History
-            </a>
+            </Link>
           </li>
 
           <div className="divider"></div>

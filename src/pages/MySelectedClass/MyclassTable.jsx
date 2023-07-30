@@ -5,11 +5,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser,faDollarSign } from "@fortawesome/free-solid-svg-icons";
 const MyclassTable = ({classes,id,refetch}) => {
 
-    const {_id,image,name,instructor,availableSeats,price,description,enrolled,email}=classes
+    const {_id,image,name,instructor,availableSeats,price,courseId,enrolled,email}=classes
     
     const [axiosSecure]=useAxiosSecure()
-    const handleDelete = (_id) => {
-        console.log(_id)
+    const handleDelete = (courseId) => {
+      
         Swal.fire({
           title: "Warning!",
           text: "Are you sure you want to delete this course?",
@@ -21,7 +21,7 @@ const MyclassTable = ({classes,id,refetch}) => {
         }).then((result) => {
           if (result.isConfirmed) {
             console.log('hello')
-            axiosSecure.delete(`/selectedclasses/${_id}`)
+            axiosSecure.delete(`/selectedclasses/${courseId}`)
             .then(res=>{
                 if(res.data.deletedCount>0)
                 {
@@ -52,7 +52,7 @@ const MyclassTable = ({classes,id,refetch}) => {
         <th>
           
           <button
-            onClick={() => handleDelete(_id)}
+            onClick={() => handleDelete(courseId)}
             className="btn bg-red-600 lg:btn-sm py-2 text-white"
           >
             Delete
