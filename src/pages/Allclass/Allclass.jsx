@@ -8,12 +8,14 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import Loader from "../Shared/Loader/Loader";
 
 const Allclass = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const [axiosSecure] = useAxiosSecure();
   const { user } = useContext(AuthContext);
+  const [studentcourse,setStudentcourse]=useState([])
   const navigate = useNavigate();
 
   const postsPerPage = 6;
@@ -28,27 +30,32 @@ const Allclass = () => {
     },
   });
   if (isLoading) {
-    return (
-      <div className="text-center mt-20">
-        <span className="loading loading-ring loading-xs"></span>
-        <span className="loading loading-ring loading-sm"></span>
-        <span className="loading loading-ring loading-md"></span>
-        <span className="loading loading-ring loading-lg"></span>
-      </div>
-    );
+    return  <Loader/>
+  
   }
 
   if (error) {
     return <div>Error: {error.message}</div>;
   }
   const currentPosts = data.slice(firstPostIndex, lastPostIndex);
-  const enroll = (data) => {
+  const enroll =async(data) => {
     if (!user?.email) {
       navigate("/login");
     }
-    data.email = user.email;
+    const newdata={
+      image:data.image,
+      name:data.name,
+      instructor:data.instructor,
+      availableSeats:data.availableSeats,
+      price:data.price,
+      description:data.description,
+      enrolled:data.enrolled,
+      email:user.email,
+      courseId:data._id
+    }
 
-    axiosSecure.post("/selectedclasses", data).then((data) => {
+
+    axiosSecure.post("/selectedclasses", newdata).then((data) => {
       if (data.data == "already exists") {
         Swal.fire("you already added this course");
       } else if (data.data.insertedId) {

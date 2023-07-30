@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import icon1 from "../assets/StudentDashboard/class.png";
@@ -40,16 +40,23 @@ const Dashboard = () => {
           <img src={icon4} className="w-20 mb-20 mx-auto" alt="" />
         
           <li className="text-white text-lg text-center font-semibold">
-            <a>
+            <Link to="/dashboard/selectedclass">
               <img src={icon1} className="h-7" alt="" />
               My Selected Classes
-            </a>
+            </Link>
           </li>
           <li className={litext}>
             <a>
               {" "}
               <img src={icon1} className="h-7" alt="" />
               My Enrolled Classes
+            </a>
+          </li>
+          <li className={litext}>
+            <a>
+              {" "}
+              <img src={icon1} className="h-7" alt="" />
+              Payment History
             </a>
           </li>
 

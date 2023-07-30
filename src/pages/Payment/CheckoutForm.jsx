@@ -5,8 +5,7 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 
-
-const CheckoutForm = ({price}) => {
+const CheckoutForm = ({price,data}) => {
   const stripe = useStripe();
   const elements = useElements();
   const {user}=useContext(AuthContext)
@@ -16,11 +15,16 @@ const CheckoutForm = ({price}) => {
   const [processing,setProcessing]=useState(false)
   const [transactionId,setTransactionId]=useState('')
   useEffect(()=>{
-    axiosSecure.post('/create-payment-intent',{price})
-    .then(res=>{
-        console.log(res.data.clientSecret)
-        setClientSecret(res.data.clientSecret)
-    })
+    
+    if(price > 0)
+    {
+        axiosSecure.post('/create-payment-intent',{price})
+        .then(res=>{
+            console.log(res.data.clientSecret)
+            setClientSecret(res.data.clientSecret)
+        })
+    }
+   
   },[price,axiosSecure])
 
   const handleSubmit = async (event) => {
@@ -36,7 +40,7 @@ const CheckoutForm = ({price}) => {
     }
     setProcessing(true)
 
-    const {error, paymentMethod} = await stripe.createPaymentMethod({
+    const {error} = await stripe.createPaymentMethod({
         type: 'card',
         card,
       });
@@ -68,6 +72,23 @@ const CheckoutForm = ({price}) => {
      if(paymentIntent.status=='succeeded')
      {
         setTransactionId(paymentIntent.id)
+
+        const payment={
+            email:user?.email,
+            transactionId:paymentIntent.id,
+            price,
+            date: new Date(),
+            status: 'service pending',
+            quantity:data.length,
+            coursesId:data.map(item=>item.courseId),
+            courseNames:data.map(item=>item.name)
+        }
+        axiosSecure.post('/payments',payment)
+        .then(res=>{
+            if(res.data.InsertResult.insertedId){
+
+            }
+        })
      }
 
 
