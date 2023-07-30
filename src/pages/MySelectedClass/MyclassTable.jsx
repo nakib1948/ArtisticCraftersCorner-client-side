@@ -1,7 +1,8 @@
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser,faDollarSign } from "@fortawesome/free-solid-svg-icons";
 const MyclassTable = ({classes,id,refetch}) => {
 
     const {_id,image,name,instructor,availableSeats,price,description,enrolled,email}=classes
@@ -46,16 +47,10 @@ const MyclassTable = ({classes,id,refetch}) => {
         <td>{name}</td>
         <td>{instructor}</td>
         <td>{availableSeats}</td>
-        <td>{price} $  </td>
-        <td>{enrolled}</td>
+        <td>{price} <FontAwesomeIcon className="mr-1" icon={faDollarSign} /></td>
+        <td>{enrolled} <FontAwesomeIcon icon={faUser} /></td>
         <th>
-          <Link to='/dashboard/payment'
-            className="btn bg-deepred lg:btn-sm mr-4 py-2 text-white"
-            
-          >
-           
-            Payment
-          </Link>
+          
           <button
             onClick={() => handleDelete(_id)}
             className="btn bg-red-600 lg:btn-sm py-2 text-white"

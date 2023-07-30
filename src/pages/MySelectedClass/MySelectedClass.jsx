@@ -4,73 +4,59 @@ import HeaderTitle from "../Shared/HeaderTitle/HeaderTitle";
 import { useQuery } from "@tanstack/react-query";
 import { AuthContext } from "../../Providers/AuthProvider";
 import MyclassTable from "./MyclassTable";
+import { Link } from "react-router-dom";
+import MyclassCart from "../../hooks/MyclassCart";
+import Loader from "../Shared/Loader/Loader";
 
 const MySelectedClass = () => {
-  const [axiosSecure] = useAxiosSecure();
-  const {user}=useContext(AuthContext)
+  const [data, isLoading, error, refetch] = MyclassCart();
 
-    const { data, isLoading, error,refetch } = useQuery({
-        queryKey: ["myclasses"],
-        queryFn: async () => {
-          const res = await axiosSecure(`/selectedclasses?email=${user?.email}`);
-          return res.data;
-        },
-      });
+  if (isLoading) {
+    return <Loader></Loader>
+  }
 
-      
-      if (isLoading) {
-        return (
-          <div className="text-center mt-20">
-            <span className="loading loading-ring loading-xs"></span>
-            <span className="loading loading-ring loading-sm"></span>
-            <span className="loading loading-ring loading-md"></span>
-            <span className="loading loading-ring loading-lg"></span>
-          </div>
-        );
-      }
-    
-      if (error) {
-        return <div>Error: {error.message}</div>;
-      }
-      console.log(data)
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+  
 
-
-    return (
-        <div>
-            <HeaderTitle title="My Selected Clasees"></HeaderTitle>
-
-            <div className="overflow-x-auto mt-10 bg-base-200">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th className="text-base text-purple ">NO.</th>
-                  <th className="text-base text-purple ">Image</th>
-                  <th className="text-base text-purple ">Course Name</th>
-                  <th className="text-base text-purple ">Instructor</th>
-                  <th className="text-base text-purple ">availableSeats</th>
-                  <th className="text-base text-purple ">Price</th>
-                  <th className="text-base text-purple ">enrolled</th>
-                  <th className="text-base text-purple ">Payment</th>
-
-                </tr>
-              </thead>
-              <tbody>
-                {data
-                  .map((classes, index) => (
-                    <MyclassTable
-                    key={index}
-                    id={index}
-                    classes={classes}
-                    refetch={refetch}
-                   
-                    ></MyclassTable>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-
-        </div>
-    );
+  return (
+    <div>
+      <HeaderTitle title="My Selected Clasees"></HeaderTitle>
+      <Link
+        to="/dashboard/payment"
+        className="btn bg-deepred lg:btn-sm mr-4 py-2 text-white"
+      >
+        Payment
+      </Link>
+      <div className="overflow-x-auto mt-10 bg-base-200">
+        <table className="table">
+          <thead>
+            <tr>
+              <th className="text-base text-purple ">NO.</th>
+              <th className="text-base text-purple ">Image</th>
+              <th className="text-base text-purple ">Course Name</th>
+              <th className="text-base text-purple ">Instructor</th>
+              <th className="text-base text-purple ">AvailableSeats</th>
+              <th className="text-base text-purple ">Price</th>
+              <th className="text-base text-purple ">Enrolled</th>
+              <th className="text-base text-purple ">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((classes, index) => (
+              <MyclassTable
+                key={index}
+                id={index}
+                classes={classes}
+                refetch={refetch}
+              ></MyclassTable>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 };
 
 export default MySelectedClass;
