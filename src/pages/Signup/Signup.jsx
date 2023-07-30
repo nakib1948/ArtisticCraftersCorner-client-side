@@ -11,8 +11,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Providers/AuthProvider";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 const Signup = () => {
   const { createUser, logOut } = useContext(AuthContext);
+  const [axiosSecure] = useAxiosSecure();
+
   const auth = getAuth();
   const navigate = useNavigate();
   const {
@@ -22,25 +25,36 @@ const Signup = () => {
     reset,
   } = useForm();
   const onSubmit = (data) => {
-
-   console.log(data)
+   
 
     createUser(data.email, data.password)
       .then((result) => {
-        Swal.fire("Signup is successful!! Please Login to your account");
         const user = result.user;
         updateProfile(auth.currentUser, {
           displayName: data.name,
           photoURL: data.photo,
         })
           .then(() => {
-            reset();
-            logOut();
-            setTimeout(() => {
-              navigate("/login");
-            }, 4000);
-            // Profile updated!
-            // ...
+            const saveUser = {
+              name: data.name,
+              email: data.email,
+              role: "user",
+            };
+            console.log('hello')
+            axiosSecure.post("/users", saveUser).then((data) => {
+              
+              if (data.data.insertedId) {
+                Swal.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  title: 'User created successfully.',
+                  showConfirmButton: false,
+                  timer: 1500
+              });
+              navigate('/');
+              reset();
+             }
+            });
           })
           .catch((error) => {
             // An error occurred
@@ -48,7 +62,7 @@ const Signup = () => {
           });
       })
       .catch((error) => {
-        Swal.fire(error.message)
+        Swal.fire(error.message);
       });
   };
   return (
@@ -60,8 +74,6 @@ const Signup = () => {
           backgroundSize: "cover",
         }}
       >
-       
-
         <div className="hero-content flex-col mt-20 lg:flex-row-reverse">
           <div className="text-center w-1/3 lg:text-left">
             <Lottie animationData={img1} />
@@ -79,11 +91,14 @@ const Signup = () => {
                   <input
                     type="text"
                     placeholder="name"
-                    {...register("name", { required: true, maxLength: 30 })}
+                    {...register("name", { required: true})}
                     className="input input-bordered"
                   />
                   {errors.name?.type === "required" && (
-                    <small className="text-red-500" role="alert"> name is required</small>
+                    <small className="text-red-500" role="alert">
+                      {" "}
+                      name is required
+                    </small>
                   )}
                 </div>
                 <div className="form-control">
@@ -94,16 +109,20 @@ const Signup = () => {
                     type="email"
                     placeholder="email"
                     {...register("email", {
-                        required: "Email is required",
-                        pattern: {
-                          // Regular expression for validating email
-                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                          message: "Invalid email address",
-                        },
-                      })}
+                      required: "Email is required",
+                      pattern: {
+                        // Regular expression for validating email
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message: "Invalid email address",
+                      },
+                    })}
                     className="input input-bordered"
                   />
-                 {errors.email && <small className="text-red-500" role="alert">{errors.email.message}</small>}
+                  {errors.email && (
+                    <small className="text-red-500" role="alert">
+                      {errors.email.message}
+                    </small>
+                  )}
                 </div>
                 <div className="form-control">
                   <label className="label">
@@ -122,7 +141,11 @@ const Signup = () => {
                     })}
                     className="input input-bordered"
                   />
-                  {errors.password && <small className="text-red-500" role="alert">{errors.password.message}</small>}
+                  {errors.password && (
+                    <small className="text-red-500" role="alert">
+                      {errors.password.message}
+                    </small>
+                  )}
                 </div>
                 <div className="form-control">
                   <label className="label">
@@ -131,11 +154,14 @@ const Signup = () => {
                   <input
                     type="text"
                     placeholder="url"
-                    {...register("photo", { required: true, maxLength: 30 })}
+                    {...register("photo", { required: true })}
                     className="input input-bordered"
                   />
-                    {errors.photo?.type === "required" && (
-                    <small className="text-red-500" role="alert"> url is required</small>
+                  {errors.photo?.type === "required" && (
+                    <small className="text-red-500" role="alert">
+                      {" "}
+                      url is required
+                    </small>
                   )}
                   <label className="label">
                     <a href="#" className="label-text-alt link link-hover">
