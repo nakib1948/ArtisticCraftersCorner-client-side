@@ -6,9 +6,11 @@ import icon2 from "../assets/StudentDashboard/icon2.png";
 import icon3 from "../assets/StudentDashboard/icon3.png";
 import icon4 from "../assets/StudentDashboard/icon4.png";
 import icon5 from "../assets/StudentDashboard/icon5.png";
+import { faUser,faDollarSign } from "@fortawesome/free-solid-svg-icons";
+import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
-  const isAdmin = false;
+  const [isAdmin] = useAdmin();
   const litext = "text-white text-lg text-center font-semibold";
 
   return (
@@ -23,7 +25,6 @@ const Dashboard = () => {
           Open drawer
         </label>
         <Outlet></Outlet>
-
       </div>
       <div className="drawer-side ">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
@@ -35,36 +36,56 @@ const Dashboard = () => {
           </p>
           <p className="text-white text-xl text-center font-serif ">
             Learning School
-           
           </p>
 
           <img src={icon4} className="w-20 mb-20 mx-auto" alt="" />
-        
-          <li className="text-white text-lg text-center font-semibold">
-            <Link to="/dashboard/selectedclass">
-              <img src={icon1} className="h-7" alt="" />
-              My Selected Classes
-            </Link>
-          </li>
-          <li className={litext}>
-            <Link to="/dashboard/enrolled">
-              {" "}
-              <img src={icon1} className="h-7" alt="" />
-              My Enrolled Classes
-            </Link>
-          </li>
-          <li className={litext}>
-            <Link to="/dashboard/paymenthistory">
-              {" "}
-              <img src={icon5} className="h-7" alt="" />
-              Payment History
-            </Link>
-          </li>
+          {isAdmin ? (
+            <>
+              <li className="text-white text-lg text-center font-semibold">
+                <Link to="/dashboard/selectedclass">
+                  <img src={icon1} className="h-7" alt="" />
+                  Manage Classes
+                </Link>
+              </li>
+              <li className={litext}>
+                <Link to="/dashboard/allusers">
+                  {" "}
+                  <FontAwesomeIcon style={{color: "#000000",}} size="xl" icon={faUser} />
+                  Manage Users
+                </Link>
+              </li>
+          
+            </>
+          ) : (
+            <>
+              <li className="text-white text-lg text-center font-semibold">
+                <Link to="/dashboard/selectedclass">
+                  <img src={icon1} className="h-7" alt="" />
+                  My Selected Classes
+                </Link>
+              </li>
+              <li className={litext}>
+                <Link to="/dashboard/enrolled">
+                  {" "}
+                  <img src={icon1} className="h-7" alt="" />
+                  My Enrolled Classes
+                </Link>
+              </li>
+              <li className={litext}>
+                <Link to="/dashboard/paymenthistory">
+                  {" "}
+                  <img src={icon5} className="h-7" alt="" />
+                  Payment History
+                </Link>
+              </li>
+            </>
+          )}
 
           <div className="divider"></div>
           <li className={litext}>
             <NavLink to="/">
-            <img src={icon3} className="h-7" alt="" />Home
+              <img src={icon3} className="h-7" alt="" />
+              Home
             </NavLink>{" "}
           </li>
           <li className={litext}>
@@ -73,7 +94,11 @@ const Dashboard = () => {
             </NavLink>
           </li>
           <li className={litext}>
-            <NavLink to="/classes">  <img src={icon1} className="h-7" alt="" />Classes</NavLink>
+            <NavLink to="/classes">
+              {" "}
+              <img src={icon1} className="h-7" alt="" />
+              Classes
+            </NavLink>
           </li>
         </ul>
       </div>
