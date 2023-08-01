@@ -1,10 +1,26 @@
-import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import HeaderTitle from "../../Shared/HeaderTitle/HeaderTitle";
+import Loader from "../../Shared/Loader/Loader";
+import { useQuery } from "@tanstack/react-query";
 
 const ClassesSection = () => {
-  const loaderData = useLoaderData();
-  const Popularcls = loaderData.slice(0, 6);
+ // const loaderData = useLoaderData();
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["popularclasses"],
+    queryFn: async () => {
+      const res = await fetch("http://localhost:3000/classes");
+      return res.json();
+    },
+  });
+  if (isLoading) {
+    return  <Loader/>
+  
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+  const Popularcls = data.slice(0, 6);
 
   return (
     <div className="mt-20">

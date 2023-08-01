@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 const axiosSecure=axios.create({
@@ -11,7 +12,7 @@ const axiosSecure=axios.create({
 const useAxiosSecure = () => {
     const {logOut}=useContext(AuthContext)
     const navigate=useNavigate()
-
+  
     useEffect(()=>{
         axiosSecure.interceptors.request.use((req)=>{
             const token=localStorage.getItem("access-token")
@@ -34,7 +35,7 @@ const useAxiosSecure = () => {
         )
 
 
-    },[logOut,navigate])
+    },[])
    
     return [axiosSecure]
 };

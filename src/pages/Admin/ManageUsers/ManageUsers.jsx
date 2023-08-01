@@ -3,10 +3,12 @@ import Loader from "../../Shared/Loader/Loader";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import HeaderTitle from "../../Shared/HeaderTitle/HeaderTitle";
 import Swal from "sweetalert2";
+import useAdmin from "../../../hooks/useAdmin";
+import { useNavigate } from "react-router-dom";
 
 const ManageUsers = () => {
     const [axiosSecure] = useAxiosSecure();
-
+   
     const { data:users=[], isLoading, error,refetch } = useQuery({
         queryKey: ["users"],
         queryFn: async () => {

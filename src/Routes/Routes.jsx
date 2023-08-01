@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
         {
           path: "/",
           element: <Home></Home>,
-          loader:()=>fetch('http://localhost:3000/classes')
+         // loader:()=>fetch('http://localhost:3000/classes')
         
         },
         {
@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
       ],
     },
     {
-        path:'dashboard',
+        path:'/dashboard',
         element: <PrivateRoute> <Dashboard></Dashboard></PrivateRoute> ,
         children:[
             {
@@ -70,7 +70,7 @@ export const router = createBrowserRouter([
             },
             {
               path:'allusers',
-              element: <AdminRoute><ManageUsers></ManageUsers></AdminRoute> 
+              element:<AdminRoute><ManageUsers></ManageUsers></AdminRoute> 
             }
         ]
     },
