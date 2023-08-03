@@ -15,6 +15,8 @@ import MyEnrolledCourses from "../pages/MyEnrolledCourses/MyEnrolledCourses";
 import ManageUsers from "../pages/Admin/ManageUsers/ManageUsers";
 import AdminRoute from "./AdminRoute";
 import AddClass from "../pages/Instructor/AddClass/AddClass";
+import Myclass from "../pages/Instructor/Myclass/Myclass";
+import UpdateClass from "../pages/Instructor/Myclass/UpdateClass";
 
 
 export const router = createBrowserRouter([
@@ -76,6 +78,13 @@ export const router = createBrowserRouter([
             {
               path:'addclass',
               element:<AddClass></AddClass>
+            },
+            {
+              path:'myclass',
+              element:<Myclass></Myclass>
+            },{
+              path:'updateclass/:id',
+              element:<UpdateClass></UpdateClass>
             }
         ]
     },

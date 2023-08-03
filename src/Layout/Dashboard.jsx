@@ -89,7 +89,7 @@ const Dashboard = () => {
                 </Link>
               </li>
               <li className={litext}>
-                <Link >
+                <Link to="/dashboard/myclass">
                   {" "}
                   <img src={icon1} className="h-7" alt="" />
                   My Classes
