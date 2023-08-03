@@ -10,7 +10,8 @@ import { faUser,faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import useAdmin from "../hooks/useAdmin";
 
 const Dashboard = () => {
-  const [isAdmin] = useAdmin();
+  const [isRole] = useAdmin();
+
   const litext = "text-white text-lg text-center font-semibold";
 
   return (
@@ -39,7 +40,7 @@ const Dashboard = () => {
           </p>
 
           <img src={icon4} className="w-20 mb-20 mx-auto" alt="" />
-          {isAdmin ? (
+          {isRole=='admin' ? (
             <>
               <li className="text-white text-lg text-center font-semibold">
                 <Link to="/dashboard/selectedclass">
@@ -56,7 +57,7 @@ const Dashboard = () => {
               </li>
           
             </>
-          ) : (
+          ) : isRole=='user'? (
             <>
               <li className="text-white text-lg text-center font-semibold">
                 <Link to="/dashboard/selectedclass">
@@ -78,6 +79,23 @@ const Dashboard = () => {
                   Payment History
                 </Link>
               </li>
+            </>
+          ) :(
+            <>
+              <li className="text-white text-lg text-center font-semibold">
+                <Link to="/dashboard/addclass">
+                  <img src={icon1} className="h-7" alt="" />
+                  Add Class
+                </Link>
+              </li>
+              <li className={litext}>
+                <Link >
+                  {" "}
+                  <img src={icon1} className="h-7" alt="" />
+                  My Classes
+                </Link>
+              </li>
+            
             </>
           )}
 

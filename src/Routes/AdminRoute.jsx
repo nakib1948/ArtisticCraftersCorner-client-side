@@ -7,17 +7,17 @@ import { useEffect } from "react";
 
 const AdminRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
-  const [isAdmin, isAdminLoading] = useAdmin();
+  const [isRole, isRoleLoading] = useAdmin();
   const location = useLocation();
   
-  if (loading || isAdminLoading) {
+  if (loading || isRoleLoading) {
     return <Loader />;
   }
 
-  if (user && isAdmin) {
+  if (user && isRole=='admin') {
     return children;
   }
-  // console.log('hayat')
+   console.log(isRole)
   return <Navigate to="/" state={{ from: location }} replace></Navigate>;
 };
 
