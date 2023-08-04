@@ -43,7 +43,7 @@ const Dashboard = () => {
           {isRole=='admin' ? (
             <>
               <li className="text-white text-lg text-center font-semibold">
-                <Link to="/dashboard/selectedclass">
+                <Link to="/dashboard/manageclasses">
                   <img src={icon1} className="h-7" alt="" />
                   Manage Classes
                 </Link>

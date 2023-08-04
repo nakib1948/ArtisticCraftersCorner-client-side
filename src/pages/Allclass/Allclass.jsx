@@ -9,55 +9,47 @@ import { AuthContext } from "../../Providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Loader from "../Shared/Loader/Loader";
+import useAllClasses from "../../hooks/useAllClasses";
 
 const Allclass = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const [axiosSecure] = useAxiosSecure();
   const { user } = useContext(AuthContext);
-  const [studentcourse,setStudentcourse]=useState([])
+  const [data, isLoading, error, refetch] = useAllClasses();
   const navigate = useNavigate();
 
   const postsPerPage = 6;
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["allclasses"],
-    queryFn: async () => {
-      const res = await fetch("http://localhost:3000/classes");
-      return res.json();
-    },
-  });
   if (isLoading) {
-    return  <Loader/>
-  
+    return <Loader />;
   }
 
   if (error) {
     return <div>Error: {error.message}</div>;
   }
   const currentPosts = data.slice(firstPostIndex, lastPostIndex);
-  const enroll =async(data) => {
+  const enroll = async (data) => {
     if (!user?.email) {
       navigate("/login");
     }
-    const newdata={
-      image:data.image,
-      name:data.name,
-      instructor:data.instructor,
-      availableSeats:data.availableSeats,
-      price:data.price,
-      description:data.description,
-      enrolled:data.enrolled,
-      email:user.email,
-      courseId:data._id
-    }
-    axiosSecure(`/existsenroll/${newdata.courseId}`)
-    .then(res=>{
-       if(res.data.exists)
-       return Swal.fire('You already enrolled this course!!!')
-       else{
+    const newdata = {
+      image: data.image,
+      name: data.name,
+      instructor: data.instructor,
+      availableSeats: data.availableSeats,
+      price: data.price,
+      description: data.description,
+      enrolled: data.enrolled,
+      email: user.email,
+      courseId: data._id,
+    };
+    axiosSecure(`/existsenroll/${newdata.courseId}`).then((res) => {
+      if (res.data.exists)
+        return Swal.fire("You already enrolled this course!!!");
+      else {
         axiosSecure.post("/selectedclasses", newdata).then((data) => {
           if (data.data == "already exists") {
             Swal.fire("you already added this course");
@@ -65,11 +57,8 @@ const Allclass = () => {
             Swal.fire("Course added successfully");
           }
         });
-       }
-        
-    })
-
-   
+      }
+    });
   };
 
   return (

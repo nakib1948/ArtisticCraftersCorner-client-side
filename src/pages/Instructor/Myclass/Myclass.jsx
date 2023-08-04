@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 const Myclass = () => {
   const [axiosSecure] = useAxiosSecure();
   const { user, loading } = useContext(AuthContext);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["myclass"],
@@ -27,10 +27,9 @@ const Myclass = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-  const handleClick=(id)=>{
-    navigate(`/dashboard/updateclass/${id}`)
-
-  }
+  const handleClick = (id) => {
+    navigate(`/dashboard/updateclass/${id}`);
+  };
   console.log(data);
 
   return (
@@ -57,16 +56,37 @@ const Myclass = () => {
                 <td>{course.enrolled}</td>
                 <td>{course.status}</td>
                 <td>
-                  <button className="btn btn-ghost">see feedback</button>
+                  <button
+                    className="btn"
+                    onClick={() => window[course._id].showModal()}
+                  >
+                    see feedback
+                  </button>
+                  <dialog
+                    id={`${course._id}`}
+                    className="modal modal-bottom sm:modal-middle"
+                  >
+                    <form method="dialog" className="modal-box">
+                      <h3 className="font-bold text-lg">FeedBack</h3>
+                      <p className="py-4">
+                       {course.feedback}
+                      </p>
+                      <div className="modal-action">
+                        {/* if there is a button in form, it will close the modal */}
+                        <button className="btn">Close</button>
+                      </div>
+                    </form>
+                  </dialog>
                 </td>
                 <th>
                   <button
-                    onClick={()=>{handleClick(course._id)}}
+                    onClick={() => {
+                      handleClick(course._id);
+                    }}
                     className="btn bg-deepred lg:btn-sm mr-4 py-2 text-white"
                   >
                     Update
                   </button>
-               
                 </th>
               </tr>
             ))}
