@@ -15,7 +15,8 @@ const MyEnrolledClassTable = ({course}) => {
         </td>
         <td>{course.name}</td>
         <td>{course.instructor}</td>
-        <td>{course.enrolled} <FontAwesomeIcon icon={faUser} /></td>
+        <td>{course.price}$</td>
+        <td className='text-green-500 font-semibold'>Paid</td>
        
       </tr>
     );

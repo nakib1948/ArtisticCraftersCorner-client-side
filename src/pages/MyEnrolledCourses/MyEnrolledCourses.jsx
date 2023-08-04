@@ -8,8 +8,6 @@ import MyEnrolledClassTable from "./MyEnrolledClassTable";
 
 const MyEnrolledCourses = () => {
   const [data, isLoading, error, refetch] = usePayment();
-  const [enrolldata, setEnrolleddata] = useState([]);
-  const [axiosSecure] = useAxiosSecure();
 
   if (isLoading) {
     return <Loader></Loader>;
@@ -18,6 +16,8 @@ const MyEnrolledCourses = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
+  if (!data.length)
+    return <HeaderTitle title="You have no selected courses"></HeaderTitle>;
 
   return (
     <div>
@@ -29,7 +29,8 @@ const MyEnrolledCourses = () => {
               <th className="text-base text-purple ">Image</th>
               <th className="text-base text-purple ">Course Name</th>
               <th className="text-base text-purple ">Instructor</th>
-              <th className="text-base text-purple ">Enrolled</th>
+              <th className="text-base text-purple ">Price</th>
+              <th className="text-base text-purple ">Status</th>
             </tr>
           </thead>
           <tbody>
