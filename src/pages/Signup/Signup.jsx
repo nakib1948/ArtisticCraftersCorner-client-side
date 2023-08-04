@@ -29,7 +29,6 @@ const Signup = () => {
 
     createUser(data.email, data.password)
       .then((result) => {
-        const user = result.user;
         updateProfile(auth.currentUser, {
           displayName: data.name,
           photoURL: data.photo,
@@ -38,6 +37,7 @@ const Signup = () => {
             const saveUser = {
               name: data.name,
               email: data.email,
+              image: data.photo,
               role: "user",
             };
             console.log('hello')

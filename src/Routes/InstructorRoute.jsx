@@ -4,7 +4,7 @@ import { AuthContext } from "../Providers/AuthProvider";
 import useAdmin from "../hooks/useAdmin";
 import Loader from "../pages/Shared/Loader/Loader";
 
-const AdminRoute = ({ children }) => {
+const InstructorRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
   const [isRole, isRoleLoading] = useAdmin();
   const location = useLocation();
@@ -13,11 +13,11 @@ const AdminRoute = ({ children }) => {
     return <Loader />;
   }
 
-  if (user && isRole=='admin') {
+  if (user && isRole=='instructor') {
     return children;
   }
    console.log(isRole)
   return <Navigate to="/" state={{ from: location }} replace></Navigate>;
 };
 
-export default AdminRoute;
+export default InstructorRoute;

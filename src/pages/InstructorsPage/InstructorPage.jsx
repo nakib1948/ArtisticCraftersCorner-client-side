@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import HeaderTitle from "../Shared/HeaderTitle/HeaderTitle";
 import { useState } from "react";
 import Pagination from "../Shared/Pagination/Pagination";
+import Loader from "../Shared/Loader/Loader";
 
 const InstructorPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,14 +15,7 @@ const InstructorPage = () => {
     },
   });
   if (isLoading) {
-    return (
-      <div className="text-center">
-        <span className="loading loading-ring loading-xs"></span>
-        <span className="loading loading-ring loading-sm"></span>
-        <span className="loading loading-ring loading-md"></span>
-        <span className="loading loading-ring loading-lg"></span>
-      </div>
-    );
+   return <Loader/>
   }
 
   if (error) {

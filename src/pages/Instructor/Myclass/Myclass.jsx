@@ -54,7 +54,7 @@ const Myclass = () => {
                 <th>{index + 1}</th>
                 <td>{course.name}</td>
                 <td>{course.enrolled}</td>
-                <td>{course.status}</td>
+                <td>{course.status=="deny" ? "denied":course.status}</td>
                 <td>
                   <button
                     className="btn"
@@ -68,7 +68,7 @@ const Myclass = () => {
                   >
                     <form method="dialog" className="modal-box">
                       <h3 className="font-bold text-lg">FeedBack</h3>
-                      <p className="py-4">
+                      <p className="py-4 text-xl">
                        {course.feedback}
                       </p>
                       <div className="modal-action">
@@ -80,6 +80,7 @@ const Myclass = () => {
                 </td>
                 <th>
                   <button
+                  disabled={course.status!='pending'}
                     onClick={() => {
                       handleClick(course._id);
                     }}

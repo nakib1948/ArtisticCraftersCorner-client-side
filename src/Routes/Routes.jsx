@@ -18,6 +18,7 @@ import AddClass from "../pages/Instructor/AddClass/AddClass";
 import Myclass from "../pages/Instructor/Myclass/Myclass";
 import UpdateClass from "../pages/Instructor/Myclass/UpdateClass";
 import ManageClass from "../pages/Admin/ManageClass/ManageClass";
+import InstructorRoute from "./InstructorRoute";
 
 
 export const router = createBrowserRouter([
@@ -82,14 +83,14 @@ export const router = createBrowserRouter([
             },
             {
               path:'addclass',
-              element:<AddClass></AddClass>
+              element:<InstructorRoute><AddClass></AddClass></InstructorRoute> 
             },
             {
               path:'myclass',
-              element:<Myclass></Myclass>
+              element:<InstructorRoute><Myclass></Myclass></InstructorRoute>
             },{
               path:'updateclass/:id',
-              element:<UpdateClass></UpdateClass>
+              element:<InstructorRoute><UpdateClass></UpdateClass></InstructorRoute>
             }
         ]
     },
