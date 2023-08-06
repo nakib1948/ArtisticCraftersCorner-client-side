@@ -1,4 +1,4 @@
-import {  Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import icon1 from "../assets/StudentDashboard/icon1.png";
@@ -8,7 +8,7 @@ import icon4 from "../assets/StudentDashboard/icon4.png";
 import icon5 from "../assets/StudentDashboard/icon5.png";
 import icon6 from "../assets/StudentDashboard/icon6.png";
 import icon7 from "../assets/StudentDashboard/icon7.png";
-import { faUser,faDollarSign } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import useAdmin from "../hooks/useAdmin";
 import ActiveLink from "../Routes/ActiveLink/ActiveLink";
 
@@ -16,7 +16,7 @@ const Dashboard = () => {
   const [isRole] = useAdmin();
 
   const litext = "text-white text-lg text-center font-semibold my-1 ";
-  const Litext="group hover:bg-transparent hover:text-white "
+  const Litext = "group hover:bg-transparent hover:text-white ";
 
   return (
     <div className="drawer lg:drawer-open gap-3">
@@ -44,7 +44,7 @@ const Dashboard = () => {
           </p>
 
           <img src={icon4} className="w-20 mb-20 mx-auto" alt="" />
-          {isRole=='admin' ? (
+          {isRole == "admin" ? (
             <>
               <li className="text-white text-lg text-center font-semibold">
                 <ActiveLink to="/dashboard/manageclasses" className={Litext}>
@@ -54,13 +54,12 @@ const Dashboard = () => {
               </li>
               <li className={litext}>
                 <ActiveLink to="/dashboard/allusers" className={Litext}>
-                <img src={icon7} className="h-9" alt="" />
+                  <img src={icon7} className="h-9" alt="" />
                   Manage Users
                 </ActiveLink>
               </li>
-          
             </>
-          ) : isRole=='user'? (
+          ) : isRole == "user" ? (
             <>
               <li className="text-white text-lg text-center font-semibold">
                 <ActiveLink to="/dashboard/selectedclass" className={Litext}>
@@ -83,7 +82,7 @@ const Dashboard = () => {
                 </ActiveLink>
               </li>
             </>
-          ) :(
+          ) : (
             <>
               <li className={litext}>
                 <ActiveLink to="/dashboard/addclass" className={Litext}>
@@ -98,7 +97,6 @@ const Dashboard = () => {
                   My Classes
                 </ActiveLink>
               </li>
-            
             </>
           )}
 

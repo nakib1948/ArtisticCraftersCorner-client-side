@@ -47,8 +47,6 @@ const Gallery = () => {
     img15,
   ];
 
-  console.log(images);
-
   return (
     <div className="my-10">
       <HeaderTitle title="Explore Our Gallery" />

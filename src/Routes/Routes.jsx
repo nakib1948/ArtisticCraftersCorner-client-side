@@ -20,82 +20,103 @@ import UpdateClass from "../pages/Instructor/Myclass/UpdateClass";
 import ManageClass from "../pages/Admin/ManageClass/ManageClass";
 import InstructorRoute from "./InstructorRoute";
 
-
 export const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Main></Main>,
-      children: [
-        {
-          path: "/",
-          element: <Home></Home>,
-         // loader:()=>fetch('http://localhost:3000/classes')
-        
-        },
-        {
-           path:'login',
-           element: <Login/>,
-        },
-        {
-          path:'signup',
-          element:<Signup/>
-        },
-        {
-            path:'instructors',
-            element:<InstructorPage/>
-        },
-        {
-            path:'classes',
-            element:<Allclass/>
-        }
-      
-  
-      ],
-    },
-    {
-        path:'/dashboard',
-        element: <PrivateRoute> <Dashboard></Dashboard></PrivateRoute> ,
-        children:[
-            {
-                path: "selectedclass",
-                element: <MySelectedClass></MySelectedClass>,
-              
-            },
-            {
-              path:'payment',
-              element:<Payment></Payment>
-            },
-            {
-              path:'enrolled',
-              element:<MyEnrolledCourses></MyEnrolledCourses>
-            },
-            {
-              path:'paymenthistory',
-              element:<PaymentHistory></PaymentHistory>
-            },
-            {
-              path:'allusers',
-              element:<AdminRoute><ManageUsers></ManageUsers></AdminRoute> 
-            },
-            {
-              path:'manageclasses',
-              element:<AdminRoute><ManageClass></ManageClass></AdminRoute> 
-            },
-            {
-              path:'addclass',
-              element:<InstructorRoute><AddClass></AddClass></InstructorRoute> 
-            },
-            {
-              path:'myclass',
-              element:<InstructorRoute><Myclass></Myclass></InstructorRoute>
-            },{
-              path:'updateclass/:id',
-              element:<InstructorRoute><UpdateClass></UpdateClass></InstructorRoute>
-            }
-        ]
-    },
-    {
-      path:'*',
-      element:<Unknownpage/>
-    }
-  ]);
+  {
+    path: "/",
+    element: <Main></Main>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+        // loader:()=>fetch('http://localhost:3000/classes')
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "signup",
+        element: <Signup />,
+      },
+      {
+        path: "instructors",
+        element: <InstructorPage />,
+      },
+      {
+        path: "classes",
+        element: <Allclass />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        {" "}
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "selectedclass",
+        element: <MySelectedClass></MySelectedClass>,
+      },
+      {
+        path: "payment",
+        element: <Payment></Payment>,
+      },
+      {
+        path: "enrolled",
+        element: <MyEnrolledCourses></MyEnrolledCourses>,
+      },
+      {
+        path: "paymenthistory",
+        element: <PaymentHistory></PaymentHistory>,
+      },
+      {
+        path: "allusers",
+        element: (
+          <AdminRoute>
+            <ManageUsers></ManageUsers>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manageclasses",
+        element: (
+          <AdminRoute>
+            <ManageClass></ManageClass>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "addclass",
+        element: (
+          <InstructorRoute>
+            <AddClass></AddClass>
+          </InstructorRoute>
+        ),
+      },
+      {
+        path: "myclass",
+        element: (
+          <InstructorRoute>
+            <Myclass></Myclass>
+          </InstructorRoute>
+        ),
+      },
+      {
+        path: "updateclass/:id",
+        element: (
+          <InstructorRoute>
+            <UpdateClass></UpdateClass>
+          </InstructorRoute>
+        ),
+      },
+    ],
+  },
+  {
+    path: "*",
+    element: <Unknownpage />,
+  },
+]);

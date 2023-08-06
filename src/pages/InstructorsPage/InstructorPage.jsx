@@ -3,6 +3,7 @@ import HeaderTitle from "../Shared/HeaderTitle/HeaderTitle";
 import { useState } from "react";
 import Pagination from "../Shared/Pagination/Pagination";
 import Loader from "../Shared/Loader/Loader";
+import { Helmet } from "react-helmet-async";
 
 const InstructorPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,8 +28,6 @@ const InstructorPage = () => {
   const firstPostIndex = lastPostIndex - postsPerPage;
   const currentPosts = data.slice(firstPostIndex, lastPostIndex);
 
-  console.log(data);
-
   return (
     <div
       className="pt-28 overflow-y-hidden overflow-x-hidden"
@@ -37,6 +36,9 @@ const InstructorPage = () => {
       data-aos-easing="ease-in-sine"
       data-aos-duration="500"
     >
+      <Helmet>
+        <title>ArtisticCraftersCorner | Instructors</title>
+      </Helmet>
       <HeaderTitle title="Our Instructors"></HeaderTitle>
       <div className="join flex justify-center items-center my-10">
         <input

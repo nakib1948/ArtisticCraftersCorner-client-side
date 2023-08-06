@@ -8,18 +8,22 @@ import {
   QueryClient,
   QueryClientProvider,
   useQuery,
-} from '@tanstack/react-query'
-import './style.css'
-const queryClient = new QueryClient()
+} from "@tanstack/react-query";
+import "./style.css";
+import { Helmet, HelmetProvider } from "react-helmet-async";
+
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AuthProvider>
-    <QueryClientProvider client={queryClient}>
-      <div className="max-w-screen-xl mx-auto">
-        <RouterProvider router={router} />
-      </div>
-      </QueryClientProvider>
-    </AuthProvider>
+    <HelmetProvider>
+      <AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          <div className="max-w-screen-xl mx-auto">
+            <RouterProvider router={router} />
+          </div>
+        </QueryClientProvider>
+      </AuthProvider>
+    </HelmetProvider>
   </React.StrictMode>
 );

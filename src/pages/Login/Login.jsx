@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import bg1 from "../../assets/Login/bg1.jpg";
 import img1 from "../../assets/Login/animation_lkm373et.json";
+import { Helmet } from "react-helmet-async";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { useForm } from "react-hook-form";
 import SocialLogin from "../Shared/Socilalogin/SocialLogin";
@@ -46,6 +46,9 @@ const Login = () => {
         backgroundSize: "cover",
       }}
     >
+      <Helmet>
+        <title>ArtisticCraftersCorner | Login</title>
+      </Helmet>
       <div className="hero-content mt-20 flex-col lg:flex-row-reverse">
         <div className="text-center w-1/3 lg:text-left">
           <Lottie animationData={img1} />

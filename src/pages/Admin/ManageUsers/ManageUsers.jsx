@@ -7,6 +7,7 @@ import useAdmin from "../../../hooks/useAdmin";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Pagination from "../../Shared/Pagination/Pagination";
+import { Helmet } from "react-helmet-async";
 
 const ManageUsers = () => {
   const [axiosSecure] = useAxiosSecure();
@@ -69,10 +70,11 @@ const ManageUsers = () => {
   const firstPostIndex = lastPostIndex - postsPerPage;
   const currentPosts = users.slice(firstPostIndex, lastPostIndex);
 
-  console.log(users);
-
   return (
     <div className="w-full card">
+      <Helmet>
+        <title>ArtisticCraftersCorner | Admindashboard</title>
+      </Helmet>
       <HeaderTitle title="Manage Users"></HeaderTitle>
       <div className="overflow-x-auto card-body rounded-xl bg-slate-300">
         <table className="table table-zebra w-full">

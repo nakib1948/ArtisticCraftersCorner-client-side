@@ -7,6 +7,7 @@ import MyclassTable from "./MyclassTable";
 import { Link } from "react-router-dom";
 import MyclassCart from "../../hooks/MyclassCart";
 import Loader from "../Shared/Loader/Loader";
+import { Helmet } from "react-helmet-async";
 
 const MySelectedClass = () => {
   const [data, isLoading, error, refetch] = MyclassCart();
@@ -24,6 +25,9 @@ const MySelectedClass = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>ArtisticCraftersCorner | Selected Courses</title>
+      </Helmet>
       <HeaderTitle title="My Selected Clasees"></HeaderTitle>
       <Link
         to="/dashboard/payment"

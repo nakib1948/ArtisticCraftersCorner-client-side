@@ -28,11 +28,16 @@ const MyclassTable = ({ classes, id, refetch }) => {
       confirmButtonText: "Confirm delete",
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log("hello");
         axiosSecure.delete(`/selectedclasses/${courseId}`).then((res) => {
           if (res.data.deletedCount > 0) {
             refetch();
-            Swal.fire("Course Deleted!!!");
+            Swal.fire({
+              position: "top-center",
+              icon: "success",
+              title: "Course Deleted!!!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
           }
         });
       }

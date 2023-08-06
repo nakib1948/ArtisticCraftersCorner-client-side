@@ -5,10 +5,16 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import Pagination from "../../Shared/Pagination/Pagination";
+import { Helmet } from "react-helmet-async";
 
 const ManageClass = () => {
   const [id, setId] = useState(null);
   const [axiosSecure] = useAxiosSecure();
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 6;
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
 
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["manageclass"],
@@ -24,6 +30,8 @@ const ManageClass = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
+  const currentPosts = data.slice(firstPostIndex, lastPostIndex);
+
   const approveSubmit = (id) => {
     const data = { status: "approved", id };
     axiosSecure.patch(`/statupdate`, data).then((res) => {
@@ -70,12 +78,12 @@ const ManageClass = () => {
         });
       }
     });
-
-    console.log(form.feedback.value);
-    console.log(id);
   };
   return (
     <div className="w-full card">
+      <Helmet>
+        <title>ArtisticCraftersCorner | Admindashboard</title>
+      </Helmet>
       <HeaderTitle title="Manage Classes"></HeaderTitle>
       <div className="overflow-x-auto card-body rounded-xl bg-slate-300">
         <table className="table">
@@ -93,7 +101,7 @@ const ManageClass = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((course, index) => (
+            {currentPosts.map((course, index) => (
               <tr key={course._id} className="text-base">
                 <th>{index + 1}</th>
                 <td>
@@ -173,6 +181,12 @@ const ManageClass = () => {
           </tbody>
         </table>
       </div>
+      <Pagination
+        totalPosts={data.length}
+        postsPerPage={postsPerPage}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      ></Pagination>
     </div>
   );
 };

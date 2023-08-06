@@ -1,6 +1,7 @@
 import usePayment from "../../hooks/usePayment";
 import HeaderTitle from "../Shared/HeaderTitle/HeaderTitle";
 import Loader from "../Shared/Loader/Loader";
+import { Helmet } from "react-helmet-async";
 
 const PaymentHistory = () => {
   const [data, isLoading, error, refetch] = usePayment();
@@ -16,9 +17,11 @@ const PaymentHistory = () => {
   if (!data.length)
     return <HeaderTitle title="You have no payment history"></HeaderTitle>;
 
-  console.log(data);
   return (
     <div className="card">
+      <Helmet>
+        <title>ArtisticCraftersCorner | PaymentHistory</title>
+      </Helmet>
       <HeaderTitle title="Payment History"></HeaderTitle>
 
       <div className="overflow-x-auto mt-10 card-body bg-slate-300 rounded-xl">

@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import HeaderTitle from "../Shared/HeaderTitle/HeaderTitle";
 import MyEnrolledClassTable from "./MyEnrolledClassTable";
+import { Helmet } from "react-helmet-async";
 
 const MyEnrolledCourses = () => {
   const [data, isLoading, error, refetch] = usePayment();
@@ -21,6 +22,9 @@ const MyEnrolledCourses = () => {
 
   return (
     <div className="card">
+      <Helmet>
+        <title>ArtisticCraftersCorner | EnrolledCourses</title>
+      </Helmet>
       <HeaderTitle title="My Enrolled Courses"></HeaderTitle>
       <div className="overflow-x-auto w-full mt-10 card-body bg-slate-300 rounded-xl">
         <table className="table">

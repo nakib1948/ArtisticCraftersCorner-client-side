@@ -29,7 +29,7 @@ const Footer = () => {
         <div className="items-center grid-flow-col">
           <img src={footerImg} className="h-20" alt="" />
           <p>
-             Art and Craft org. <br />
+            Art and Craft org. <br />
             Providing creative opportunities for everyone since 2010
           </p>
         </div>
@@ -72,9 +72,9 @@ const Footer = () => {
         </div>
       </footer>
       <footer className=" pb-5  bg-base-200 ">
-      <div className="text-center">
-        <p>Copyright © 2023 - All right reserved by Art and Craft org.</p>
-      </div>
+        <div className="text-center">
+          <p>Copyright © 2023 - All right reserved by Art and Craft org.</p>
+        </div>
       </footer>
     </>
   );

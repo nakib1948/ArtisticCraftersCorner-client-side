@@ -4,41 +4,41 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
 import { useLocation, useNavigate } from "react-router-dom";
 
-
-const axiosSecure=axios.create({
-    baseURL:'http://localhost:3000'
-})
+const axiosSecure = axios.create({
+  baseURL: "http://localhost:3000",
+});
 
 const useAxiosSecure = () => {
-    const {logOut}=useContext(AuthContext)
-    const navigate=useNavigate()
-  
-    useEffect(()=>{
-        axiosSecure.interceptors.request.use((req)=>{
-            const token=localStorage.getItem("access-token")
-            console.log("Token:", token);
-            if(token){
-                req.headers.Authorization=`Bearer ${token}`
-            }
-            return req
-        })
+  const { logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-        axiosSecure.interceptors.response.use(
-            response=>response,
+  useEffect(() => {
+    axiosSecure.interceptors.request.use((req) => {
+      const token = localStorage.getItem("access-token");
 
-            async(error)=>{
-                if(error.response && (error.response.status === 401 || error.response.status===403)){
-                    await logOut()
-                    navigate('/login')
-                }
-                return Promise.reject(error)
-            }
-        )
+      if (token) {
+        req.headers.Authorization = `Bearer ${token}`;
+      }
+      return req;
+    });
 
+    axiosSecure.interceptors.response.use(
+      (response) => response,
 
-    },[logOut,navigate])
-   
-    return [axiosSecure]
+      async (error) => {
+        if (
+          error.response &&
+          (error.response.status === 401 || error.response.status === 403)
+        ) {
+          await logOut();
+          navigate("/login");
+        }
+        return Promise.reject(error);
+      }
+    );
+  }, [logOut, navigate]);
+
+  return [axiosSecure];
 };
 
 export default useAxiosSecure;

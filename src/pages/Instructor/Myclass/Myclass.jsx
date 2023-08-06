@@ -6,6 +6,7 @@ import Loader from "../../Shared/Loader/Loader";
 import HeaderTitle from "../../Shared/HeaderTitle/HeaderTitle";
 import UpdateClass from "./UpdateClass";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const Myclass = () => {
   const [axiosSecure] = useAxiosSecure();
@@ -30,17 +31,19 @@ const Myclass = () => {
   const handleClick = (id) => {
     navigate(`/dashboard/updateclass/${id}`);
   };
-  console.log(data);
 
   return (
     <div className="w-full card">
+      <Helmet>
+        <title>ArtisticCraftersCorner | Instructordashboard</title>
+      </Helmet>
       <HeaderTitle title="My Class"></HeaderTitle>
       <div className="overflow-x-auto card-body bg-slate-200 rounded-xl m-5">
         <table className="table table-zebra w-full">
           {/* head */}
           <thead>
             <tr className="text-base">
-              <th >#</th>
+              <th>#</th>
               <th>Course</th>
               <th>Enrolled</th>
               <th>Status</th>
@@ -54,7 +57,7 @@ const Myclass = () => {
                 <th>{index + 1}</th>
                 <td>{course.name}</td>
                 <td>{course.enrolled}</td>
-                <td>{course.status=="deny" ? "denied":course.status}</td>
+                <td>{course.status == "deny" ? "denied" : course.status}</td>
                 <td>
                   <button
                     className="btn bg-deepred text-white font-semibold"
@@ -68,9 +71,7 @@ const Myclass = () => {
                   >
                     <form method="dialog" className="modal-box">
                       <h3 className="font-bold text-lg">FeedBack</h3>
-                      <p className="py-4 text-xl">
-                       {course.feedback}
-                      </p>
+                      <p className="py-4 text-xl">{course.feedback}</p>
                       <div className="modal-action">
                         {/* if there is a button in form, it will close the modal */}
                         <button className="btn">Close</button>
@@ -80,7 +81,7 @@ const Myclass = () => {
                 </td>
                 <th>
                   <button
-                  disabled={course.status!='pending'}
+                    disabled={course.status != "pending"}
                     onClick={() => {
                       handleClick(course._id);
                     }}

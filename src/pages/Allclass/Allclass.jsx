@@ -10,12 +10,15 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Loader from "../Shared/Loader/Loader";
 import useAllClasses from "../../hooks/useAllClasses";
+import useAdmin from "../../hooks/useAdmin";
+import { Helmet } from "react-helmet-async";
 
 const Allclass = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const [axiosSecure] = useAxiosSecure();
   const { user } = useContext(AuthContext);
+  const [isRole] = useAdmin();
   const [data, isLoading, error, refetch] = useAllClasses();
   const navigate = useNavigate();
 
@@ -62,10 +65,16 @@ const Allclass = () => {
   };
 
   return (
-    <div className="pt-28"  data-aos="zoom-in-down"
-    data-aos-offset="300"
-    data-aos-easing="ease-in-sine"
-    data-aos-duration="500">
+    <div
+      className="pt-28"
+      data-aos="zoom-in-down"
+      data-aos-offset="300"
+      data-aos-easing="ease-in-sine"
+      data-aos-duration="500"
+    >
+      <Helmet>
+        <title>ArtisticCraftersCorner | AllClasses</title>
+      </Helmet>
       <HeaderTitle title="Our Available Courses"></HeaderTitle>
       <div className="join flex justify-center items-center my-10">
         <input
@@ -106,7 +115,6 @@ const Allclass = () => {
                   : "card card-side bg-base-100 shadow-xl"
               }
             >
-          
               <figure>
                 <img
                   className="w-96 rounded-xl"
@@ -128,7 +136,11 @@ const Allclass = () => {
 
                 <div className="card-actions justify-end">
                   <button
-                    disabled={classes.availableSeats === 0}
+                    disabled={
+                      classes.availableSeats === 0 ||
+                      isRole == "admin" ||
+                      isRole == "instructor"
+                    }
                     className="btn w-full font-bold bg-deepred text-white"
                     onClick={() => {
                       enroll(classes);
@@ -137,7 +149,6 @@ const Allclass = () => {
                     Enroll
                   </button>
                 </div>
-              
               </div>
             </div>
           ))}

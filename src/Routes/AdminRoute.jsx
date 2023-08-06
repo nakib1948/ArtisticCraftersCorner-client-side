@@ -8,15 +8,15 @@ const AdminRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
   const [isRole, isRoleLoading] = useAdmin();
   const location = useLocation();
-  
+
   if (loading || isRoleLoading) {
     return <Loader />;
   }
 
-  if (user && isRole=='admin') {
+  if (user && isRole == "admin") {
     return children;
   }
-   console.log(isRole)
+
   return <Navigate to="/" state={{ from: location }} replace></Navigate>;
 };
 

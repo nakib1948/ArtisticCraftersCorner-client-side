@@ -15,10 +15,9 @@ const SocialLogin = () => {
     googleSignIn()
       .then((result) => {
         const user = result.user;
-        console.log(user)
-     
+
         const saveUser = {
-          name:  user.displayName,
+          name: user.displayName,
           email: user.email,
           image: user.photoURL,
           role: "user",
@@ -27,23 +26,17 @@ const SocialLogin = () => {
         axiosSecure.post("/users", saveUser).then((data) => {
           if (data.data.insertedId) {
             Swal.fire({
-              position: 'top-end',
-              icon: 'success',
-              title: 'User created successfully.',
+              position: "top-end",
+              icon: "success",
+              title: "User created successfully.",
               showConfirmButton: false,
-              timer: 1500
-          });
-         
+              timer: 1500,
+            });
           }
           navigate(from, { replace: true });
-
         });
-
-        
       })
-      .catch((error) => {
-        console.log(error.message)
-      });
+      .catch((error) => {});
   };
 
   return (

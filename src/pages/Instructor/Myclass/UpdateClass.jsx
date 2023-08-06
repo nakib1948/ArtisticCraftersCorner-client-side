@@ -6,8 +6,10 @@ import { AuthContext } from "../../../Providers/AuthProvider";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../Shared/Loader/Loader";
+import { Helmet } from "react-helmet-async";
+
 import HeaderTitle from "../../Shared/HeaderTitle/HeaderTitle";
-const img_hosting_token=import.meta.env.VITE_Image_Upload_Token
+const img_hosting_token = import.meta.env.VITE_Image_Upload_Token;
 
 const UpdateClass = () => {
   const [axiosSecure] = useAxiosSecure();
@@ -19,10 +21,9 @@ const UpdateClass = () => {
     reset,
   } = useForm();
 
-  const {id}=useParams()
+  const { id } = useParams();
 
- 
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["instructorclass"],
@@ -38,15 +39,14 @@ const UpdateClass = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-  const course=data[0]
-  const img_hosting_url= `https://api.imgbb.com/1/upload?key=${img_hosting_token}`
+  const course = data[0];
+  const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
 
-  
-  const onSubmit = (data,event) => {
+  const onSubmit = (data, event) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("image", data.image[0]);
-    console.log("clicked");
+
     fetch(img_hosting_url, {
       method: "POST",
       body: formData,
@@ -54,7 +54,7 @@ const UpdateClass = () => {
       .then((res) => res.json())
       .then((imgResponse) => {
         const imgURL = imgResponse.data.display_url;
-        const {name, email, price, availableSeats, instructor } = data;
+        const { name, email, price, availableSeats, instructor } = data;
         const newData = {
           name,
           image: imgURL,
@@ -66,163 +66,166 @@ const UpdateClass = () => {
           status: "pending",
           feedback: "",
         };
-        axiosSecure.patch(`/instructorupdateclasses/${course._id}`, newData).then((data) => {
-          if (data.data.modifiedCount) {
-            refetch()
-            Swal.fire({
-              position: "top-center",
-              icon: "success",
-              title: "Course updated successfully!!",
-              showConfirmButton: false,
-              timer: 2000,
-            }).then(() => {
-                navigate("/dashboard/myclass"); 
+        axiosSecure
+          .patch(`/instructorupdateclasses/${course._id}`, newData)
+          .then((data) => {
+            if (data.data.modifiedCount) {
+              refetch();
+              Swal.fire({
+                position: "top-center",
+                icon: "success",
+                title: "Course updated successfully!!",
+                showConfirmButton: false,
+                timer: 2000,
+              }).then(() => {
+                navigate("/dashboard/myclass");
               });
-           
-          }
-        });
+            }
+          });
       });
   };
 
   return (
     <div className="w-full card">
+      <Helmet>
+        <title>ArtisticCraftersCorner | Instructordashboard</title>
+      </Helmet>
       <HeaderTitle title="Update Class"></HeaderTitle>
       <div className="card-body bg-slate-200 rounded-xl m-5">
-      <form onSubmit={handleSubmit(onSubmit)}>
-       
-        <div className="md:flex my-5 lg:flex">
-          <div className="form-control md:w-1/2 lg:w-1/2">
-            <label className="label">
-              <span className="label-text text-deepred  text-lg">
-                Class Name
-              </span>
-            </label>
-            <label className="input-group">
-              <input
-                type="text"
-                placeholder="Class Name...."
-               defaultValue={course.name}
-                {...register("name", { required: true })}
-                className="input input-secondary input-bordered w-full"
-              />
-            </label>
-            {errors.name?.type === "required" && (
-              <small className="text-red-500" role="alert">
-                {" "}
-                name is required
-              </small>
-            )}
-          </div>
-          <div className="form-control md:w-1/2 lg:ml-4 md:ml-4">
-            <label className="label">
-              <span className="label-text text-deepred  text-lg">
-                Upload image
-              </span>
-            </label>
-            <label className="input-group">
-              <input
-                type="file"
-                {...register("image", { required: true })}
-                className="file-input file-input-bordered w-full max-w-xs"
-              />{" "}
-            </label>
-            {errors.image?.type === "required" && (
-              <small className="text-red-500" role="alert">
-                {" "}
-                image is required
-              </small>
-            )}
-          </div>
-        </div>
-
-        <div className="md:flex my-5 lg:flex">
-          <div className="form-control md:w-1/2 lg:w-1/2">
-            <label className="label">
-              <span className="label-text text-deepred  text-lg">
-                Instructor Name
-              </span>
-            </label>
-            <label className="input-group">
-              <input
-                type="text"
-                placeholder="Instructor name..."
-                value={user?.displayName}
-                {...register("instructor", { required: true })}
-                className="input input-secondary input-bordered w-full"
-              />
-            </label>
-          </div>
-          <div className="form-control md:w-1/2 lg:ml-4 md:ml-4">
-            <label className="label">
-              <span className="label-text text-deepred  text-lg">Email</span>
-            </label>
-            <label className="input-group">
-              <input
-                type="email"
-                placeholder="Instructor email"
-                value={user?.email}
-                {...register("email", { required: true })}
-                className="input input-secondary input-bordered w-full"
-              />
-            </label>
-          </div>
-        </div>
-
-        <div className="md:flex my-5 lg:flex">
-          <div className="form-control md:w-1/2 lg:ml-4 md:ml-4">
-            <label className="label">
-              <span className="label-text text-deepred  text-lg">
-                Available seats
-              </span>
-            </label>
-            <label className="input-group">
-              <input
-                type="number"
-                min="1"
-                name="availableSeats"
-                defaultValue={course.availableSeats}
-                {...register("availableSeats", { required: true })}
-                placeholder="seats..."
-                className="input input-secondary input-bordered w-full"
-              />
-            </label>
-            {errors.availableSeats?.type === "required" && (
-              <small className="text-red-500" role="alert">
-                {" "}
-                availableSeats is required
-              </small>
-            )}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="md:flex my-5 lg:flex">
+            <div className="form-control md:w-1/2 lg:w-1/2">
+              <label className="label">
+                <span className="label-text text-deepred  text-lg">
+                  Class Name
+                </span>
+              </label>
+              <label className="input-group">
+                <input
+                  type="text"
+                  placeholder="Class Name...."
+                  defaultValue={course.name}
+                  {...register("name", { required: true })}
+                  className="input input-secondary input-bordered w-full"
+                />
+              </label>
+              {errors.name?.type === "required" && (
+                <small className="text-red-500" role="alert">
+                  {" "}
+                  name is required
+                </small>
+              )}
+            </div>
+            <div className="form-control md:w-1/2 lg:ml-4 md:ml-4">
+              <label className="label">
+                <span className="label-text text-deepred  text-lg">
+                  Upload image
+                </span>
+              </label>
+              <label className="input-group">
+                <input
+                  type="file"
+                  {...register("image", { required: true })}
+                  className="file-input file-input-bordered w-full max-w-xs"
+                />{" "}
+              </label>
+              {errors.image?.type === "required" && (
+                <small className="text-red-500" role="alert">
+                  {" "}
+                  image is required
+                </small>
+              )}
+            </div>
           </div>
 
-          <div className="form-control md:w-1/2 lg:ml-4 md:ml-4">
-            <label className="label">
-              <span className="label-text text-deepred  text-lg">Price</span>
-            </label>
-            <label className="input-group">
-              <input
-                type="number"
-                min="1"
-                {...register("price", { required: true })}
-                placeholder="price..."
-                defaultValue={course.price}
-                className="input input-secondary input-bordered w-full"
-              />
-            </label>
-            {errors.price?.type === "required" && (
-              <small className="text-red-500" role="alert">
-                {" "}
-                price is required
-              </small>
-            )}
+          <div className="md:flex my-5 lg:flex">
+            <div className="form-control md:w-1/2 lg:w-1/2">
+              <label className="label">
+                <span className="label-text text-deepred  text-lg">
+                  Instructor Name
+                </span>
+              </label>
+              <label className="input-group">
+                <input
+                  type="text"
+                  placeholder="Instructor name..."
+                  value={user?.displayName}
+                  {...register("instructor", { required: true })}
+                  className="input input-secondary input-bordered w-full"
+                />
+              </label>
+            </div>
+            <div className="form-control md:w-1/2 lg:ml-4 md:ml-4">
+              <label className="label">
+                <span className="label-text text-deepred  text-lg">Email</span>
+              </label>
+              <label className="input-group">
+                <input
+                  type="email"
+                  placeholder="Instructor email"
+                  value={user?.email}
+                  {...register("email", { required: true })}
+                  className="input input-secondary input-bordered w-full"
+                />
+              </label>
+            </div>
           </div>
-        </div>
 
-        <input
-          type="submit"
-          value="Update Class"
-          className="btn btn-block bg-deepred  text-white font-semibold  mt-4"
-        />
-      </form>
+          <div className="md:flex my-5 lg:flex">
+            <div className="form-control md:w-1/2 lg:ml-4 md:ml-4">
+              <label className="label">
+                <span className="label-text text-deepred  text-lg">
+                  Available seats
+                </span>
+              </label>
+              <label className="input-group">
+                <input
+                  type="number"
+                  min="1"
+                  name="availableSeats"
+                  defaultValue={course.availableSeats}
+                  {...register("availableSeats", { required: true })}
+                  placeholder="seats..."
+                  className="input input-secondary input-bordered w-full"
+                />
+              </label>
+              {errors.availableSeats?.type === "required" && (
+                <small className="text-red-500" role="alert">
+                  {" "}
+                  availableSeats is required
+                </small>
+              )}
+            </div>
+
+            <div className="form-control md:w-1/2 lg:ml-4 md:ml-4">
+              <label className="label">
+                <span className="label-text text-deepred  text-lg">Price</span>
+              </label>
+              <label className="input-group">
+                <input
+                  type="number"
+                  min="1"
+                  {...register("price", { required: true })}
+                  placeholder="price..."
+                  defaultValue={course.price}
+                  className="input input-secondary input-bordered w-full"
+                />
+              </label>
+              {errors.price?.type === "required" && (
+                <small className="text-red-500" role="alert">
+                  {" "}
+                  price is required
+                </small>
+              )}
+            </div>
+          </div>
+
+          <input
+            type="submit"
+            value="Update Class"
+            className="btn btn-block bg-deepred  text-white font-semibold  mt-4"
+          />
+        </form>
       </div>
     </div>
   );

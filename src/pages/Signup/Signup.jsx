@@ -12,6 +12,7 @@ import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Providers/AuthProvider";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+
 const Signup = () => {
   const { createUser, logOut } = useContext(AuthContext);
   const [axiosSecure] = useAxiosSecure();
@@ -25,8 +26,6 @@ const Signup = () => {
     reset,
   } = useForm();
   const onSubmit = (data) => {
-   
-
     createUser(data.email, data.password)
       .then((result) => {
         updateProfile(auth.currentUser, {
@@ -40,20 +39,20 @@ const Signup = () => {
               image: data.photo,
               role: "user",
             };
-            console.log('hello')
+
             axiosSecure.post("/users", saveUser).then((data) => {
-              
               if (data.data.insertedId) {
                 Swal.fire({
-                  position: 'top-end',
-                  icon: 'success',
-                  title: 'User created successfully.',
+                  position: "top-center",
+                  icon: "success",
+                  title: "Signup successfull.",
                   showConfirmButton: false,
-                  timer: 1500
-              });
-              navigate('/');
-              reset();
-             }
+                  timer: 1500,
+                }).then(() => {
+                  reset();
+                  navigate("/");
+                });
+              }
             });
           })
           .catch((error) => {
@@ -74,6 +73,9 @@ const Signup = () => {
           backgroundSize: "cover",
         }}
       >
+        <Helmet>
+          <title>ArtisticCraftersCorner | Signup</title>
+        </Helmet>
         <div className="hero-content flex-col mt-20 lg:flex-row-reverse">
           <div className="text-center w-1/3 lg:text-left">
             <Lottie animationData={img1} />
@@ -91,7 +93,7 @@ const Signup = () => {
                   <input
                     type="text"
                     placeholder="name"
-                    {...register("name", { required: true})}
+                    {...register("name", { required: true })}
                     className="input input-bordered"
                   />
                   {errors.name?.type === "required" && (
