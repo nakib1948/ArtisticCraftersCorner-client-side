@@ -1,7 +1,6 @@
 import { useState } from "react";
 import usePayment from "../../hooks/usePayment";
 import Loader from "../Shared/Loader/Loader";
-import { useEffect } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import HeaderTitle from "../Shared/HeaderTitle/HeaderTitle";
 import MyEnrolledClassTable from "./MyEnrolledClassTable";

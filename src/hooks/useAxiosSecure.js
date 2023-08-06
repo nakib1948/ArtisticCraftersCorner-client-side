@@ -5,7 +5,7 @@ import { AuthContext } from "../Providers/AuthProvider";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://summer-camp-server-side.vercel.app",
 });
 
 const useAxiosSecure = () => {

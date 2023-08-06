@@ -11,7 +11,7 @@ const InstructorSection = () => {
   const [instructors, setInstructors] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/instructor", {
+    fetch("https://summer-camp-server-side.vercel.app/instructor", {
       method: "GET",
     })
       .then((res) => res.json())

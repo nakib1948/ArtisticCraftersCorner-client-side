@@ -19,7 +19,7 @@ const ManageClass = () => {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["manageclass"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:3000/manageclass");
+      const res = await fetch("https://summer-camp-server-side.vercel.app/manageclass");
       return res.json();
     },
   });
