@@ -62,7 +62,10 @@ const Allclass = () => {
   };
 
   return (
-    <div className="pt-28">
+    <div className="pt-28"  data-aos="zoom-in-down"
+    data-aos-offset="300"
+    data-aos-easing="ease-in-sine"
+    data-aos-duration="500">
       <HeaderTitle title="Our Available Courses"></HeaderTitle>
       <div className="join flex justify-center items-center my-10">
         <input
@@ -94,12 +97,16 @@ const Allclass = () => {
           .map((classes, index) => (
             <div
               key={index}
+              data-aos="flip-left"
+              data-aos-easing="ease-out-cubic"
+              data-aos-duration="2000"
               className={
                 classes.availableSeats === 0
                   ? "card bg-red-500 card-side bg-base-100 shadow-xl"
                   : "card card-side bg-base-100 shadow-xl"
               }
             >
+          
               <figure>
                 <img
                   className="w-96 rounded-xl"
@@ -130,6 +137,7 @@ const Allclass = () => {
                     Enroll
                   </button>
                 </div>
+              
               </div>
             </div>
           ))}

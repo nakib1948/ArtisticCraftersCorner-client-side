@@ -49,10 +49,11 @@ const AddClass = () => {
    
   };
   return (
-    <div className="w-full ml-3">
+    <div className="w-full ml-3 card">
       <HeaderTitle title="Add a Class"></HeaderTitle>
+      <div className="card-body bg-slate-300 rounded-xl">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="md:flex my-5 lg:flex">
+        <div className="md:flex my-5 lg:flex" >
           <div className="form-control md:w-1/2 lg:w-1/2">
             <label className="label">
               <span className="label-text text-deepred  text-lg">
@@ -183,6 +184,7 @@ const AddClass = () => {
           className="btn btn-block bg-deepred  text-white font-semibold  mt-4"
         />
       </form>
+      </div>
     </div>
   );
 };

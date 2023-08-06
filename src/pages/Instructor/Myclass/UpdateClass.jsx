@@ -6,6 +6,7 @@ import { AuthContext } from "../../../Providers/AuthProvider";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../Shared/Loader/Loader";
+import HeaderTitle from "../../Shared/HeaderTitle/HeaderTitle";
 const img_hosting_token=import.meta.env.VITE_Image_Upload_Token
 
 const UpdateClass = () => {
@@ -84,8 +85,11 @@ const UpdateClass = () => {
   };
 
   return (
-    <div>
+    <div className="w-full card">
+      <HeaderTitle title="Update Class"></HeaderTitle>
+      <div className="card-body bg-slate-200 rounded-xl m-5">
       <form onSubmit={handleSubmit(onSubmit)}>
+       
         <div className="md:flex my-5 lg:flex">
           <div className="form-control md:w-1/2 lg:w-1/2">
             <label className="label">
@@ -219,6 +223,7 @@ const UpdateClass = () => {
           className="btn btn-block bg-deepred  text-white font-semibold  mt-4"
         />
       </form>
+      </div>
     </div>
   );
 };

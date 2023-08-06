@@ -15,7 +15,7 @@ const InstructorPage = () => {
     },
   });
   if (isLoading) {
-   return <Loader/>
+    return <Loader />;
   }
 
   if (error) {
@@ -30,7 +30,13 @@ const InstructorPage = () => {
   console.log(data);
 
   return (
-    <div className="pt-28">
+    <div
+      className="pt-28 overflow-y-hidden overflow-x-hidden"
+      data-aos="zoom-in-down"
+      data-aos-offset="300"
+      data-aos-easing="ease-in-sine"
+      data-aos-duration="500"
+    >
       <HeaderTitle title="Our Instructors"></HeaderTitle>
       <div className="join flex justify-center items-center my-10">
         <input
@@ -64,16 +70,24 @@ const InstructorPage = () => {
               key={index}
               className="card card-compact w-96 bg-base-100 shadow-xl"
             >
-              <figure>
-                <img
-                  className="h-60 rounded-lg"
-                  src={instructor.image}
-                  alt="Shoes"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">{instructor.name}</h2>
-                <p className="text-base font-sans">Email: {instructor.email}</p>
+              <div
+                data-aos="flip-left"
+                data-aos-easing="ease-out-cubic"
+                data-aos-duration="2000"
+              >
+                <figure>
+                  <img
+                    className="h-60 rounded-lg"
+                    src={instructor.image}
+                    alt="Shoes"
+                  />
+                </figure>
+                <div className="card-body">
+                  <h2 className="card-title">{instructor.name}</h2>
+                  <p className="text-base font-sans">
+                    Email: {instructor.email}
+                  </p>
+                </div>
               </div>
             </div>
           ))}

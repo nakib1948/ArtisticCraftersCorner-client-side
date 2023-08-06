@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser,faDollarSign } from "@fortawesome/free-solid-svg-icons";
 const MyEnrolledClassTable = ({course}) => {
     return (
-        <tr>
+        <tr className="text-base">
         <td>
           <div className="flex items-center space-x-3">
             <div className="avatar">

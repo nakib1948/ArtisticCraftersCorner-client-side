@@ -20,12 +20,12 @@ const MyEnrolledCourses = () => {
     return <HeaderTitle title="You have no selected courses"></HeaderTitle>;
 
   return (
-    <div>
+    <div className="card">
       <HeaderTitle title="My Enrolled Courses"></HeaderTitle>
-      <div className="overflow-x-auto w-full mt-10 bg-base-200">
+      <div className="overflow-x-auto w-full mt-10 card-body bg-slate-300 rounded-xl">
         <table className="table">
           <thead>
-            <tr>
+            <tr className="text-base">
               <th className="text-base text-purple ">Image</th>
               <th className="text-base text-purple ">Course Name</th>
               <th className="text-base text-purple ">Instructor</th>

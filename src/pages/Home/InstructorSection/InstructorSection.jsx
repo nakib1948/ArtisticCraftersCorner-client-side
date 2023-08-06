@@ -15,7 +15,7 @@ const InstructorSection = () => {
       method: "GET",
     })
       .then((res) => res.json())
-      .then((data) => setInstructors(data.slice(0,6)));
+      .then((data) => setInstructors(data.slice(0, 6)));
   }, []);
 
   return (
@@ -23,7 +23,6 @@ const InstructorSection = () => {
       <HeaderTitle title=" Our Famous Instructors"></HeaderTitle>
 
       <Swiper
-        slidesPerView={3}
         spaceBetween={30}
         freeMode={true}
         pagination={{
@@ -34,6 +33,15 @@ const InstructorSection = () => {
         autoplay={{
           delay: 3000,
           disableOnInteraction: false,
+        }}
+        breakpoints={{
+          768: {
+            slidesPerView: 1,
+          },
+
+          992: {
+            slidesPerView: 3,
+          },
         }}
       >
         {instructors.map((data, index) => (

@@ -63,7 +63,7 @@ const ManageUsers = () => {
     });
   };
 
-  const postsPerPage = 10;
+  const postsPerPage = 6;
 
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
@@ -72,13 +72,13 @@ const ManageUsers = () => {
   console.log(users);
 
   return (
-    <div className="w-full">
+    <div className="w-full card">
       <HeaderTitle title="Manage Users"></HeaderTitle>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto card-body rounded-xl bg-slate-300">
         <table className="table table-zebra w-full">
           {/* head */}
           <thead>
-            <tr>
+            <tr className="text-base">
               <th>#</th>
               <th>Name</th>
               <th>Email</th>
@@ -87,7 +87,7 @@ const ManageUsers = () => {
           </thead>
           <tbody>
             {currentPosts.map((user, index) => (
-              <tr key={user._id}>
+              <tr key={user._id} className="text-base">
                 <th>{index + 1}</th>
                 <td>{user.name}</td>
                 <td>{user.email}</td>

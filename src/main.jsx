@@ -9,7 +9,7 @@ import {
   QueryClientProvider,
   useQuery,
 } from '@tanstack/react-query'
-
+import './style.css'
 const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById("root")).render(

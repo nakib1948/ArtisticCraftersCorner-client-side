@@ -4,7 +4,7 @@ import Loader from "../../Shared/Loader/Loader";
 import { useQuery } from "@tanstack/react-query";
 
 const ClassesSection = () => {
- // const loaderData = useLoaderData();
+  // const loaderData = useLoaderData();
   const { data, isLoading, error } = useQuery({
     queryKey: ["popularclasses"],
     queryFn: async () => {
@@ -13,8 +13,7 @@ const ClassesSection = () => {
     },
   });
   if (isLoading) {
-    return  <Loader/>
-  
+    return <Loader />;
   }
 
   if (error) {
@@ -23,7 +22,12 @@ const ClassesSection = () => {
   const Popularcls = data.slice(0, 6);
 
   return (
-    <div className="mt-20">
+    <div
+      className="mt-20"
+      data-aos="zoom-in-down"
+      data-aos-offset="500"
+      data-aos-duration="500"
+    >
       <HeaderTitle title="Our Popular Classes"></HeaderTitle>
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 my-10">

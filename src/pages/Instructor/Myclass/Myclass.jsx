@@ -33,14 +33,14 @@ const Myclass = () => {
   console.log(data);
 
   return (
-    <div className="w-full">
+    <div className="w-full card">
       <HeaderTitle title="My Class"></HeaderTitle>
-      <div className="overflow-x-auto mt-5">
+      <div className="overflow-x-auto card-body bg-slate-200 rounded-xl m-5">
         <table className="table table-zebra w-full">
           {/* head */}
           <thead>
-            <tr>
-              <th>#</th>
+            <tr className="text-base">
+              <th >#</th>
               <th>Course</th>
               <th>Enrolled</th>
               <th>Status</th>
@@ -50,14 +50,14 @@ const Myclass = () => {
           </thead>
           <tbody>
             {data.map((course, index) => (
-              <tr key={course._id}>
+              <tr className="text-base" key={course._id}>
                 <th>{index + 1}</th>
                 <td>{course.name}</td>
                 <td>{course.enrolled}</td>
                 <td>{course.status=="deny" ? "denied":course.status}</td>
                 <td>
                   <button
-                    className="btn"
+                    className="btn bg-deepred text-white font-semibold"
                     onClick={() => window[course._id].showModal()}
                   >
                     see feedback

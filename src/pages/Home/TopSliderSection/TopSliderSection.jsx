@@ -51,7 +51,7 @@ const TopSliderSection = () => {
         }}
       >
         <div className="hero-overlay bg-opacity-40"></div>
-        <div className="hero-content text-center text-neutral-content">
+        <div data-aos="flip-up" data-aos-duration="1500" className="hero-content text-center text-neutral-content">
           <div className="max-w-md bg-deepred  px-10 py-5 rounded-sm">
             <h1 className="mb-5 text-3xl font-bold">{data.title}</h1>
             <p className="mb-5">

@@ -75,12 +75,12 @@ const ManageClass = () => {
     console.log(id);
   };
   return (
-    <div className="w-full">
+    <div className="w-full card">
       <HeaderTitle title="Manage Classes"></HeaderTitle>
-      <div className="overflow-x-auto bg-base-200 mt-5">
+      <div className="overflow-x-auto card-body rounded-xl bg-slate-300">
         <table className="table">
           <thead>
-            <tr>
+            <tr className="text-base">
               <th className="text-base text-purple ">NO.</th>
               <th className="text-base text-purple ">Class Image</th>
               <th className="text-base text-purple ">Class Name</th>
@@ -94,7 +94,7 @@ const ManageClass = () => {
           </thead>
           <tbody>
             {data.map((course, index) => (
-              <tr key={course._id}>
+              <tr key={course._id} className="text-base">
                 <th>{index + 1}</th>
                 <td>
                   <div className="flex items-center space-x-3">
