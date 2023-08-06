@@ -54,7 +54,7 @@ const TopSliderSection = () => {
           <div
             data-aos="flip-up"
             data-aos-duration="1500"
-            className="hero-content text-center text-neutral-content"
+            className="hero-content text-center text-neutral-content sm:pt-10"
           >
             <div className="max-w-md bg-deepred  px-10 py-5 rounded-sm">
               <h1 className="mb-5 text-3xl font-bold">{data.title}</h1>
