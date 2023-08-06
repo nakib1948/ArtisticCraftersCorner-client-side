@@ -28,7 +28,6 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-       
       },
       {
         path: "login",
@@ -59,19 +58,39 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "selectedclass",
-        element: <MySelectedClass></MySelectedClass>,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <MySelectedClass></MySelectedClass>
+          </PrivateRoute>
+        ),
       },
       {
         path: "payment",
-        element: <Payment></Payment>,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <Payment></Payment>
+          </PrivateRoute>
+        ),
       },
       {
         path: "enrolled",
-        element: <MyEnrolledCourses></MyEnrolledCourses>,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <MyEnrolledCourses></MyEnrolledCourses>
+          </PrivateRoute>
+        ),
       },
       {
         path: "paymenthistory",
-        element: <PaymentHistory></PaymentHistory>,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <PaymentHistory></PaymentHistory>
+          </PrivateRoute>
+        ),
       },
       {
         path: "allusers",

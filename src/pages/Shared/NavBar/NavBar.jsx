@@ -47,12 +47,16 @@ const NavBar = () => {
         <Link to="/classes">Classes</Link>
       </li>
       <li className="text-xl font-bold">
-        {isRole == "user" ? (
-          <Link to="/dashboard/selectedclass">DashBoard</Link>
-        ) : isRole == "instructor" ? (
-          <Link to="/dashboard/myclass">DashBoard</Link>
+        {user ? (
+          isRole === "user" ? (
+            <Link to="/dashboard/selectedclass">DashBoard</Link>
+          ) : isRole === "instructor" ? (
+            <Link to="/dashboard/myclass">DashBoard</Link>
+          ) : (
+            <Link to="/dashboard/allusers">DashBoard</Link>
+          )
         ) : (
-          <Link to="/dashboard/allusers">DashBoard</Link>
+          <Link to="/login">Dashboard</Link>
         )}
       </li>
       <li>
