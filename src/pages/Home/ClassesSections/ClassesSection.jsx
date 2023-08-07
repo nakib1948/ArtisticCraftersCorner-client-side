@@ -24,9 +24,6 @@ const ClassesSection = () => {
   return (
     <div
       className="mt-20"
-      data-aos="zoom-in-down"
-      data-aos-offset="500"
-      data-aos-duration="500"
     >
       <HeaderTitle title="Our Popular Classes"></HeaderTitle>
 

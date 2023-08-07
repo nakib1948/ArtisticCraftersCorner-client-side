@@ -106,9 +106,7 @@ const Allclass = () => {
           .map((classes, index) => (
             <div
               key={index}
-              data-aos="flip-left"
-              data-aos-easing="ease-out-cubic"
-              data-aos-duration="2000"
+           
               className={
                 classes.availableSeats === 0
                   ? "card bg-red-500 card-side bg-base-100 shadow-xl"

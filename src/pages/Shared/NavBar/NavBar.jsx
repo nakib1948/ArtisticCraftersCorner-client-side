@@ -9,6 +9,7 @@ import { useEffect } from "react";
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [isRole] = useAdmin();
+  console.log(isRole)
   const navigate = useNavigate();
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
