@@ -30,7 +30,7 @@ const InstructorPage = () => {
 
   return (
     <div
-      className="pt-28 overflow-y-hidden overflow-x-hidden"
+      className="pt-28 overflow-y-hidden overflow-x-hidden mx-auto max-w-7xl"
       data-aos="zoom-in-down"
       data-aos-offset="300"
       data-aos-easing="ease-in-sine"

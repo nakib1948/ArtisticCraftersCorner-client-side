@@ -66,7 +66,7 @@ const Allclass = () => {
 
   return (
     <div
-      className="pt-28"
+      className="pt-28 mx-auto max-w-7xl"
       data-aos="zoom-in-down"
       data-aos-offset="300"
       data-aos-easing="ease-in-sine"
